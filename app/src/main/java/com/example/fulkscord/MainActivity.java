@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -15,5 +18,10 @@ public class MainActivity extends AppCompatActivity {
         TextView view = findViewById(R.id.FulkscordIntro);
         view.setText("Welcome to Fulkscord");
         view.setTextSize(30);
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+
+        myRef.setValue("Hello, World!");
     }
 }

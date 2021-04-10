@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "660832733525",
+    "firebase_url": "https://fulkscord-default-rtdb.firebaseio.com",
+    "project_id": "fulkscord",
+    "storage_bucket": "fulkscord.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660832733525:android:840487d620cb625c6e87dc",
+        "android_client_info": {
+          "package_name": "com.example.fulkscord"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660832733525-k1vojbujnsepu7jukdkogk7p86e97vec.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoo1iDiiC-zLfEHMMoeIv14umaMwK4sDA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660832733525-k1vojbujnsepu7jukdkogk7p86e97vec.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
