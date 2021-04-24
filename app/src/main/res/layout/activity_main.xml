@@ -32,10 +32,10 @@
         app:cornerRadius="40sp"
         app:layout_constraintBottom_toTopOf="@+id/SignUp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/FulkscordIntro"
-        app:layout_constraintVertical_bias="0.758" />
+        app:layout_constraintVertical_bias="0.913" />
 
     <Button
         android:id="@+id/SignUp"
@@ -50,5 +50,17 @@
         app:layout_constraintStart_toStartOf="@+id/logIn"
         app:layout_constraintTop_toBottomOf="@+id/FulkscordIntro"
         app:layout_constraintVertical_bias="0.688" />
+
+    <ImageView
+        android:layout_width="162dp"
+        android:layout_height="148dp"
+        android:layout_marginTop="36dp"
+        android:src="@drawable/resource_final"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/FulkscordIntro"
+        app:layout_constraintVertical_bias="0.055" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

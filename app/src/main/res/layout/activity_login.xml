@@ -5,19 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#36393f"
-    tools:context=".HomeScreen">
+    tools:context=".Login">
 
     <Button
         android:id="@+id/logIn2"
         android:layout_width="156dp"
         android:layout_height="64dp"
+        android:layout_marginBottom="60dp"
         android:fontFamily="@font/capriola"
         android:text="Log In!"
         android:textSize="20sp"
+        app:cornerRadius="40sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password" />
+
+    <ImageView
+        android:layout_width="197dp"
+        android:layout_height="371dp"
+        android:layout_marginEnd="96dp"
+        android:src="@drawable/resource_final"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.385" />
 
     <TextView
         android:id="@+id/Fulkscord"
@@ -36,20 +48,21 @@
         app:layout_constraintVertical_bias="0.136" />
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Email"
+        android:fontFamily="@font/capriola"
+        android:hint="Username"
         android:inputType="textPersonName"
         android:textColor="#FFFFFF"
         android:textColorHint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Fulkscord"
-        app:layout_constraintVertical_bias="0.114" />
+        app:layout_constraintVertical_bias="0.421" />
 
     <EditText
         android:id="@+id/password"
@@ -58,13 +71,15 @@
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
+        android:fontFamily="@font/capriola"
         android:textColor="#FFFFFF"
         android:textColorHint="@color/white"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email"
+        app:layout_constraintTop_toBottomOf="@+id/username"
         app:layout_constraintVertical_bias="0.133" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

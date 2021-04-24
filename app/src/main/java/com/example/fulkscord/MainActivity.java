@@ -15,14 +15,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView view = findViewById(R.id.FulkscordIntro);
-        view.setText("Welcome to Fulkscord");
-        view.setTextSize(30);
-
+        System.out.println("Hello world");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("message");
-
-        myRef.setValue("Hello, World!");
 
     }
 }
