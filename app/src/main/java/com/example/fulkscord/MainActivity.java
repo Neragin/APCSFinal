@@ -23,5 +23,17 @@ public class MainActivity extends AppCompatActivity {
         DatabaseReference myRef = database.getReference("message");
 
         myRef.setValue("Hello, World!");
+
     }
 }
+
+/*
+
+    public class SpecialButton extends Button {
+        public SpecialButton(){
+            super( ... );
+        }
+    }
+
+
+ */
