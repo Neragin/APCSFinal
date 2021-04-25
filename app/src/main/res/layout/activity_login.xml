@@ -9,77 +9,82 @@
 
     <Button
         android:id="@+id/logIn2"
-        android:layout_width="156dp"
-        android:layout_height="64dp"
-        android:layout_marginBottom="60dp"
+        android:layout_width="204dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="189dp"
         android:fontFamily="@font/capriola"
         android:text="Log In!"
         android:textSize="20sp"
         app:cornerRadius="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <ImageView
-        android:layout_width="197dp"
-        android:layout_height="371dp"
-        android:layout_marginEnd="96dp"
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="324dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="67dp"
+        android:alpha="0.4"
         android:src="@drawable/resource_final"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/logIn2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.385" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/Fulkscord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="89dp"
+        android:layout_marginBottom="83dp"
         android:fontFamily="@font/capriola"
         android:gravity="center"
         android:text="Welcome to Fulkscord"
         android:textColor="#FFFFFF"
         android:textSize="60sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintBottom_toTopOf="@+id/username"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.136" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="47dp"
+        android:backgroundTint="@color/white"
         android:ems="10"
         android:fontFamily="@font/capriola"
         android:hint="Username"
         android:inputType="textPersonName"
         android:textColor="#FFFFFF"
         android:textColorHint="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/password"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Fulkscord"
-        app:layout_constraintVertical_bias="0.421" />
+        app:layout_constraintTop_toBottomOf="@+id/Fulkscord" />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="51dp"
+        android:backgroundTint="@color/white"
         android:ems="10"
+        android:fontFamily="@font/capriola"
         android:hint="Password"
         android:inputType="textPassword"
-        android:fontFamily="@font/capriola"
         android:textColor="#FFFFFF"
         android:textColorHint="@color/white"
 
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/logIn2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username"
-        app:layout_constraintVertical_bias="0.133" />
+        app:layout_constraintTop_toBottomOf="@+id/username" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
