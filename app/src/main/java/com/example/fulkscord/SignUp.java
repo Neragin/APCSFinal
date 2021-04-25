@@ -40,7 +40,7 @@ public class SignUp extends AppCompatActivity {
             ) || email.equals("")){
                 Toast toast = Toast.makeText(this, "Please enter a valid email.", Toast.LENGTH_LONG);
                 toast.show();
-                emailView.setHint("Email");
+                emailView.setHint("Email Address");
                 emailView.setText("");
             }
 
@@ -54,7 +54,7 @@ public class SignUp extends AppCompatActivity {
             if(password == null || !password.matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\\\S+$).{8,}")) {
                 Toast toast = Toast.makeText(this, "a digit must occur at least once \n a lower case letter must occur at least once \n an upper case letter must occur at least once \n a special character must occur at least once \n no whitespace allowed in the entire string \n at least 8 characters", Toast.LENGTH_LONG);
                 toast.show();
-                passwordView.setHint("");
+                passwordView.setHint("Password");
                 passwordView.setText("");
             }
 
