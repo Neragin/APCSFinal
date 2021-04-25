@@ -9,16 +9,15 @@
 
     <Button
         android:id="@+id/logIn2"
-        android:layout_width="204dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="189dp"
+        android:layout_width="187dp"
+        android:layout_height="95dp"
+        android:layout_marginBottom="177dp"
         android:fontFamily="@font/capriola"
         android:text="Log In!"
         android:textSize="20sp"
         app:cornerRadius="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password" />
 
@@ -39,14 +38,14 @@
         android:id="@+id/Fulkscord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="89dp"
-        android:layout_marginBottom="83dp"
+        android:layout_marginTop="92dp"
+        android:layout_marginBottom="186dp"
         android:fontFamily="@font/capriola"
         android:gravity="center"
         android:text="Welcome to Fulkscord"
         android:textColor="#FFFFFF"
         android:textSize="60sp"
-        app:layout_constraintBottom_toTopOf="@+id/username"
+        app:layout_constraintBottom_toTopOf="@+id/password"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -65,26 +64,33 @@
         android:textSize="22sp"
         app:layout_constraintBottom_toTopOf="@+id/password"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Fulkscord" />
+        app:layout_constraintTop_toBottomOf="@+id/Fulkscord"
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="51dp"
+        android:layout_marginBottom="52dp"
         android:backgroundTint="@color/white"
         android:ems="10"
         android:fontFamily="@font/capriola"
         android:hint="Password"
         android:inputType="textPassword"
         android:textColor="#FFFFFF"
-        android:textColorHint="@color/white"
 
+        android:textColorHint="@color/white"
         android:textSize="22sp"
         app:layout_constraintBottom_toTopOf="@+id/logIn2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
+        app:layout_constraintTop_toBottomOf="@+id/Fulkscord" />
+    <!--        app:layout_constraintBottom_toTopOf="@+id/logIn2"-->
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/username" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
