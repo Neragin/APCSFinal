@@ -1,5 +1,7 @@
 package com.example.fulkscord.messages;
 
+import android.widget.TextView;
+
 import java.util.Date;
 
 public class Message {
