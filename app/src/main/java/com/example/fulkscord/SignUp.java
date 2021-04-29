@@ -78,18 +78,23 @@ public class SignUp extends AppCompatActivity {
                 boolean exists = false;
 
                 Query queries = mDatabase.child(DatabaseKeys.userKey).orderByChild("username").equalTo(username);
+                System.out.println(queries);
 
                 ValueEventListener eventListener = new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        System.out.println("hello");
                         if(!dataSnapshot.exists()) {
                             User user = new User(username, email, "1231231234", password);
+                            System.out.println("hello");
                             mDatabase.child(DatabaseKeys.userKey).child(username).setValue(user);
                         }
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {}
+                    public void onCancelled(DatabaseError databaseError) {
+                        System.out.println("cancelled");
+                    }
                 };
 
                 queries.addListenerForSingleValueEvent(eventListener);
