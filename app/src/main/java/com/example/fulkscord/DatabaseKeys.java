@@ -5,7 +5,7 @@ public class DatabaseKeys {
     static String userKey;
 
     static {
-        userKey = "/user";
+        userKey = "user";
     }
 
 }
