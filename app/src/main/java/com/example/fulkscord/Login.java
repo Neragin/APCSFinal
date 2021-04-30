@@ -70,9 +70,11 @@ public class Login extends AppCompatActivity {
 
             ((EditText)findViewById(R.id.username)).setHint("Username");
             ((EditText)findViewById(R.id.username)).setText("");
+            ((EditText)findViewById(R.id.password)).setHint("Password");
+            ((EditText)findViewById(R.id.password)).setText("");
         }
 
-        else if(password.getText().toString().trim()  == null || !password.getText().toString().trim().matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")) {
+        else if(password.getText().toString().trim() == null || !password.getText().toString().trim().matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")) {
 
             if (toast != null) {
                 toast.cancel();
@@ -82,6 +84,8 @@ public class Login extends AppCompatActivity {
             toast.show();
             ((EditText)findViewById(R.id.password)).setHint("Password");
             ((EditText)findViewById(R.id.password)).setText("");
+            ((EditText)findViewById(R.id.username)).setHint("Username");
+            ((EditText)findViewById(R.id.username)).setText("");
         } else{
             logInUser();
         }
