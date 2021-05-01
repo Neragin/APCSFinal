@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Fulkscord">
+        <activity android:name=".directMessage.DirectMessageActivity"></activity>
         <activity
             android:name=".homeScreen.HomeScreenActivity"
             android:exported="true" />
