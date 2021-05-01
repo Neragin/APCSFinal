@@ -47,8 +47,7 @@ public class User {
     public boolean equals(Object other){
         if(!(other instanceof User)) return false;
         User u = (User) other;
-        if(username.equals(u.getUsername()) && username.equals(u.getEmail())) return true;
-        return false;
+        return username.equals(u.getUsername()) && username.equals(u.getEmail());
     }
 
     public int hashCode(){

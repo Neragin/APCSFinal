@@ -37,11 +37,11 @@ public class SignUp extends AppCompatActivity {
 
     private void setUpRegisterRequest() {
 
-        usernameView = (TextView) findViewById(R.id.userName);
-        emailView = (TextView) findViewById(R.id.email);
-        passwordView = (TextView) findViewById(R.id.registrationPassword);
+        usernameView = findViewById(R.id.userName);
+        emailView = findViewById(R.id.email);
+        passwordView = findViewById(R.id.registrationPassword);
 
-        register = (Button) findViewById(R.id.logIn2);
+        register = findViewById(R.id.logIn2);
         register.setOnClickListener(v -> {
             waitForDataAndCheck();
         });

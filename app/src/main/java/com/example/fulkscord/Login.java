@@ -44,8 +44,8 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                username = (EditText)findViewById(R.id.username);
-                password = (EditText)findViewById(R.id.password);
+                username = findViewById(R.id.username);
+                password = findViewById(R.id.password);
                 usernameString = username.getText().toString().trim();
                 passwordString = password.getText().toString().trim();
 

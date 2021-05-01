@@ -8,7 +8,7 @@ import java.util.Stack;
 public class DirectMessages {
 
     private User user1, user2;
-    private Stack<Message> messages;
+    private final Stack<Message> messages;
 
     public DirectMessages(User user1, User user2) {
         this.user1 = user1;

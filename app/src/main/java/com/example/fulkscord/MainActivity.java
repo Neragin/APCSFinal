@@ -31,13 +31,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpButtons() {
-        logIn = (Button) findViewById(R.id.logIn);
+        logIn = findViewById(R.id.logIn);
         logIn.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, Login.class);
             startActivity(intent);
         });
 
-        signUp = (Button) findViewById(R.id.SignUp);
+        signUp = findViewById(R.id.SignUp);
         signUp.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, SignUp.class);
             startActivity(intent);
