@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Fulkscord">
         <activity
-            android:name=".HomeScreenActivity"
+            android:name=".homeScreen.HomeScreenActivity"
             android:exported="true" />
         <activity android:name=".Login" />
         <activity android:name=".SignUp" />

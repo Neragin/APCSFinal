@@ -13,6 +13,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
+    //do u guys see this?
+
     Button logIn, signUp;
 
     @Override

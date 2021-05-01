@@ -19,43 +19,5 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="title_activity_home_screen">HomeScreen</string>
-    <string-array name="testing_relativeView">
-        <item>Hello</item>
-        <item>AYYYY</item>
-        <item>Hello</item>
-        <item>AYYYY</item>
-        <item>Hello</item>
-        <item>AYYYY</item>
-        <item>Hello</item>
-        <item>AYYYY</item>
-        <item>Hello</item>
-        <item>AYYYY</item>
-        <item>Hello</item>
-        <item>AYYYY</item>
-        <item>Hello</item>
-        <item>AYYYY</item>
-        <item>Hello</item>
-        <item>AYYYY</item>
-        <item>AYYYY</item>
-    </string-array>
-    <string-array name="descriptions">
-        <item>Hello</item>
-        <item>AYYYY</item>
-        <item>Hello</item>
-        <item>AYYYY</item>
-        <item>Hello</item>
-        <item>AYYYY</item>
-        <item>Hello</item>
-        <item>AYYYY</item>
-        <item>Hello</item>
-        <item>AYYYY</item>
-        <item>Hello</item>
-        <item>AYYYY</item>
-        <item>Hello</item>
-        <item>AYYYY</item>
-        <item>Hello</item>
-        <item>AYYYY</item>
-        <item>AYYYY</item>
-    </string-array>
 
 </resources>
