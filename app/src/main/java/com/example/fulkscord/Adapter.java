@@ -13,7 +13,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.viewHolder> {
 
     String[] test, descriptions;
     Context context;
-    public Adapter(Context ctx, String s1[], String s2[]) {
+    public Adapter(Context ctx, String[] s1, String[] s2) {
         context = ctx;
         test = s1;
         descriptions = s2;
