@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "660832733525-3v2ji1eud9nuu899mne06esl12mjc8e9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fulkscord",
+            "certificate_hash": "465313d735412687f8219a3391bf647b45d5d1c5"
+          }
+        },
+        {
+          "client_id": "660832733525-8m0q01hcf1fra2f5jj9fiv24v1omv86j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fulkscord",
+            "certificate_hash": "c9db1dcf575be282f12402e2c53c3133948f1c78"
+          }
+        },
+        {
           "client_id": "660832733525-k1vojbujnsepu7jukdkogk7p86e97vec.apps.googleusercontent.com",
           "client_type": 3
         }
