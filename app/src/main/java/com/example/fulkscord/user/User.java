@@ -2,6 +2,9 @@ package com.example.fulkscord.user;
 
 import java.util.ArrayList;
 
+/**
+ * User object to store in database
+ */
 public class User {
 
     private String username, email, phoneNumber, password;

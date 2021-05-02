@@ -4,6 +4,9 @@ import android.widget.TextView;
 
 import java.util.Date;
 
+/**
+ * Individual message that will be used to display on screen
+ */
 public class Message {
 
     String text, key, sender, receiver;

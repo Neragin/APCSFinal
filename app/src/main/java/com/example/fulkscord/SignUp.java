@@ -19,6 +19,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+/**
+ * This class is the Sign Up action a user can do.
+ * The class registers a new user into Firebase. It
+ * goes through regex checking to verify the input data,
+ * and makes sure the username is unique before creating the user.
+ * It then loads up the HomeScreen activity for the user.
+ */
 public class SignUp extends AppCompatActivity {
 
     String username, email, password;
@@ -37,6 +44,10 @@ public class SignUp extends AppCompatActivity {
 
     }
 
+    /**
+     * Initializes the input fields and the register button
+     * and sets it's onClickListener
+     */
     private void setUpRegisterRequest() {
 
         usernameView = findViewById(R.id.userName);
@@ -49,6 +60,12 @@ public class SignUp extends AppCompatActivity {
         });
     }
 
+    /**
+     * Responds to register's onClickListener. When clicked,
+     * it extracts the text inputted, performs regex checks to
+     * validate the data, and adds a new user to firebase iff
+     * it is a unique user.
+     */
     private void waitForDataAndCheck() {
         username = (usernameView).getText().toString().trim();
         email = (emailView).getText().toString().trim();
@@ -56,28 +73,43 @@ public class SignUp extends AppCompatActivity {
         System.err.println("Name: " + username + ", email: " + email + ", pwd: " + password);
 
         if (email == null || !email.matches(
-                "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])"
+                "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-" +
+                        "\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])" +
+                        "*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2" +
+                        "[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:" +
+                        "[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])" //NOTE: This is from an online reference
         ) || email.equals("")) {
-            //Toast toast = Toast.makeText(this, Html.fromHtml("<font color='#ff0000' ><b>" + "Please use a valid email." + "</b></font>"));
-            Toast toast = Toast.makeText(this, "Enter a valid email", Toast.LENGTH_SHORT);
-            toast.show();
+
+            makeNewToast("Enter a valid email");
             emailView.setHint("Email Address");
             emailView.setText("");
+
         } else if (username == null || !username.matches("^[A-Za-z]\\w{5,29}$")) {
-            Toast toast = Toast.makeText(this, Html.fromHtml("<font color='#ff0000' ><b>" + "Your username must be between 6 to 30 characters, start with a letter, and only contain alphanumeric characters and underscores." + "</b></font>"), Toast.LENGTH_LONG);
-            toast.show();
+
+            makeNewToast("Your username must be between 6 to 30 characters, start with a l" +
+                    "etter, and only contain alphanumeric characters and underscores.");
             usernameView.setHint("Username");
             usernameView.setText("");
+
         } else if (password == null || !password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")) {
-            Toast toast = Toast.makeText(this, "Please enter a valid password that: \n is more than eight characters and contains at least 1 letter and 1 number.", Toast.LENGTH_LONG);
-            toast.show();
+
+            makeNewToast("Please enter a valid password that: \\n is more than eight characters and contains at least 1 letter and 1 number.\"");
             passwordView.setHint("Password");
             passwordView.setText("");
+
         } else {
             createUser();
         }
     }
 
+    private void makeNewToast(String issue) {
+        Toast toast = Toast.makeText(this, issue, Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    /**
+     * Accessing code to the database and appends the user to it
+     */
     private void createUser() {
 
 
@@ -98,7 +130,7 @@ public class SignUp extends AppCompatActivity {
 
                     mDatabase.child(DatabaseKeys.userKey).child(username).child("friends").child("bob").setValue("bob");
 
-                    goToHomeAcitivty();
+                    goToHomeActivity();
                 }
             }
 
@@ -109,7 +141,10 @@ public class SignUp extends AppCompatActivity {
         });
     }
 
-    private void goToHomeAcitivty() {
+    /**
+     * Sets up a new intent to take the user to Home Screen
+     */
+    private void goToHomeActivity() {
         Intent intent = new Intent(this, HomeScreenActivity.class);
         intent.putExtra("username", username);
         startActivity(intent);

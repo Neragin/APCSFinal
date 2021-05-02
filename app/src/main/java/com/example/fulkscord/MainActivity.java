@@ -11,25 +11,27 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * This class is the title page that the app opens to
+ * Here, users are allowed to either sign up and create an account,
+ * or log in to a previously existing account. This activity simply
+ * leads the user to one of the two proposed options.
+ */
 public class MainActivity extends AppCompatActivity {
-
-    //do u guys see this?
-
     Button logIn, signUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        System.out.println("Hello world");
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-
         setUpButtons();
 
     }
 
+    /**
+     * Defines the onClickListeners for the log in and sign up buttons --> leads to a
+     * different activity corresponding to the button clicked
+     */
     private void setUpButtons() {
         logIn = findViewById(R.id.logIn);
         logIn.setOnClickListener(v -> {
