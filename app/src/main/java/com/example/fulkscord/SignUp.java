@@ -17,6 +17,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class SignUp extends AppCompatActivity {
 
     String username, email, password;
@@ -90,9 +92,11 @@ public class SignUp extends AppCompatActivity {
 
                 } else {
                     // username is valid
-                    User user = new User(username, email, "1231231234", password);
+                    User user = new User(username, email, "1231231234", password, new ArrayList<String>());
                     System.out.println("hello");
                     mDatabase.child(DatabaseKeys.userKey).child(username).setValue(user);
+
+                    mDatabase.child(DatabaseKeys.userKey).child(username).child("friends").child("bob").setValue("bob");
 
                     goToHomeAcitivty();
                 }

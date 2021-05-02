@@ -1,15 +1,19 @@
 package com.example.fulkscord.user;
 
+import java.util.ArrayList;
+
 public class User {
 
     private String username, email, phoneNumber, password;
+    private ArrayList<String> friends;
 
 
-    public User(String username, String email, String phoneNumber, String password){
+    public User(String username, String email, String phoneNumber, String password, ArrayList<String> friends){
         this.username = username;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.password = password;
+        this.friends = friends;
     }
 
     public String getUsername() {
@@ -42,6 +46,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public ArrayList<String> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(ArrayList<String> friends) {
+        this.friends = friends;
     }
 
     public boolean equals(Object other){
