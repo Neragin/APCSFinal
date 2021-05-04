@@ -18,31 +18,37 @@ import com.google.firebase.database.FirebaseDatabase;
  * leads the user to one of the two proposed options.
  */
 public class MainActivity extends AppCompatActivity {
-    Button logIn, signUp;
+	/**
+	 * The Log in.
+	 */
+	Button logIn, /**
+	 * The Sign up.
+	 */
+	signUp;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        setUpButtons();
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		setUpButtons();
 
-    }
+	}
 
-    /**
-     * Defines the onClickListeners for the log in and sign up buttons --> leads to a
-     * different activity corresponding to the button clicked
-     */
-    private void setUpButtons() {
-        logIn = findViewById(R.id.logIn);
-        logIn.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, Login.class);
-            startActivity(intent);
-        });
+	/**
+	 * Defines the onClickListeners for the log in and sign up buttons --> leads to a
+	 * different activity corresponding to the button clicked
+	 */
+	private void setUpButtons() {
+		logIn = findViewById(R.id.logIn);
+		logIn.setOnClickListener(v -> {
+			Intent intent = new Intent(MainActivity.this, Login.class);
+			startActivity(intent);
+		});
 
-        signUp = findViewById(R.id.SignUp);
-        signUp.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, SignUp.class);
-            startActivity(intent);
-        });
-    }
+		signUp = findViewById(R.id.SignUp);
+		signUp.setOnClickListener(v -> {
+			Intent intent = new Intent(MainActivity.this, SignUp.class);
+			startActivity(intent);
+		});
+	}
 }

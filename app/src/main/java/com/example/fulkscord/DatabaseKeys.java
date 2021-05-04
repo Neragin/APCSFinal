@@ -6,10 +6,15 @@ package com.example.fulkscord;
  */
 public class DatabaseKeys {
 
-    public static String userKey;
+	/**
+	 * The constant userKey.
+	 */
+	public static String userKey, friendsKey, dmKey;
 
-    static {
-        userKey = "user";
-    }
+	static {
+		userKey = "user";
+		friendsKey = "friends";
+		dmKey = "dm";
+	}
 
 }

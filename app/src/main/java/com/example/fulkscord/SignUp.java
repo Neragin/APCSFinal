@@ -28,125 +28,126 @@ import java.util.ArrayList;
  */
 public class SignUp extends AppCompatActivity {
 
-    String username, email, password;
-    TextView usernameView, emailView, passwordView;
-    Button register;
-    private DatabaseReference mDatabase;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+	private String username, email, password;
+	private TextView usernameView, emailView, passwordView;
+	private Button register;
+	private DatabaseReference mDatabase;
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_sign_up);
 
-        setUpRegisterRequest();
+		mDatabase = FirebaseDatabase.getInstance().getReference();
 
-    }
+		setUpRegisterRequest();
 
-    /**
-     * Initializes the input fields and the register button
-     * and sets it's onClickListener
-     */
-    private void setUpRegisterRequest() {
+	}
 
-        usernameView = findViewById(R.id.userName);
-        emailView = findViewById(R.id.email);
-        passwordView = findViewById(R.id.registrationPassword);
+	/**
+	 * Initializes the input fields and the register button
+	 * and sets it's onClickListener
+	 */
+	private void setUpRegisterRequest() {
 
-        register = findViewById(R.id.logIn2);
-        register.setOnClickListener(v -> {
-            waitForDataAndCheck();
-        });
-    }
+		usernameView = findViewById(R.id.userName);
+		emailView = findViewById(R.id.email);
+		passwordView = findViewById(R.id.registrationPassword);
 
-    /**
-     * Responds to register's onClickListener. When clicked,
-     * it extracts the text inputted, performs regex checks to
-     * validate the data, and adds a new user to firebase iff
-     * it is a unique user.
-     */
-    private void waitForDataAndCheck() {
-        username = (usernameView).getText().toString().trim();
-        email = (emailView).getText().toString().trim();
-        password = (passwordView).getText().toString().trim();
-        System.err.println("Name: " + username + ", email: " + email + ", pwd: " + password);
+		register = findViewById(R.id.logIn2);
+		register.setOnClickListener(v -> {
+			waitForDataAndCheck();
+		});
+	}
 
-        if (email == null || !email.matches(
-                "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-" +
-                        "\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])" +
-                        "*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2" +
-                        "[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:" +
-                        "[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])" //NOTE: This is from an online reference
-        ) || email.equals("")) {
+	/**
+	 * Responds to register's onClickListener. When clicked,
+	 * it extracts the text inputted, performs regex checks to
+	 * validate the data, and adds a new user to firebase iff
+	 * it is a unique user.
+	 */
+	private void waitForDataAndCheck() {
+		username = (usernameView).getText().toString().trim();
+		email = (emailView).getText().toString().trim();
+		password = (passwordView).getText().toString().trim();
+		System.err.println("Name: " + username + ", email: " + email + ", pwd: " + password);
 
-            makeNewToast("Enter a valid email");
-            emailView.setHint("Email Address");
-            emailView.setText("");
+		if (email == null || !email.matches(
+				"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-" +
+						"\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])" +
+						"*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2" +
+						"[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:" +
+						"[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])" //NOTE: This is from an online reference
+		) || email.equals("")) {
 
-        } else if (username == null || !username.matches("^[A-Za-z]\\w{5,29}$")) {
+			makeNewToast("Enter a valid email");
+			emailView.setHint("Email Address");
+			emailView.setText("");
 
-            makeNewToast("Your username must be between 6 to 30 characters, start with a l" +
-                    "etter, and only contain alphanumeric characters and underscores.");
-            usernameView.setHint("Username");
-            usernameView.setText("");
+		} else if (username == null || !username.matches("^[A-Za-z]\\w{5,29}$")) {
 
-        } else if (password == null || !password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")) {
+			makeNewToast("Your username must be between 6 to 30 characters, start with a l" +
+					"etter, and only contain alphanumeric characters and underscores.");
+			usernameView.setHint("Username");
+			usernameView.setText("");
 
-            makeNewToast("Please enter a valid password that: \\n is more than eight characters and contains at least 1 letter and 1 number.\"");
-            passwordView.setHint("Password");
-            passwordView.setText("");
+		} else if (password == null || !password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")) {
 
-        } else {
-            createUser();
-        }
-    }
+			makeNewToast("Please enter a valid password that: \\n is more than eight characters and contains at least 1 letter and 1 number.\"");
+			passwordView.setHint("Password");
+			passwordView.setText("");
 
-    private void makeNewToast(String issue) {
-        Toast toast = Toast.makeText(this, issue, Toast.LENGTH_SHORT);
-        toast.show();
-    }
+		} else {
+			createUser();
+		}
+	}
 
-    /**
-     * Accessing code to the database and appends the user to it
-     */
-    private void createUser() {
+	private void makeNewToast(String issue) {
+		Toast toast = Toast.makeText(this, issue, Toast.LENGTH_SHORT);
+		toast.show();
+	}
+
+	/**
+	 * Accessing code to the database and appends the user to it
+	 */
+	private void createUser() {
 
 
-        mDatabase.child(DatabaseKeys.userKey).child(username).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                System.out.println(dataSnapshot);
-                if (dataSnapshot.exists()) {
-                    // username is already taken
-                    Toast toast = Toast.makeText(SignUp.this, "Username Already Exists", Toast.LENGTH_SHORT);
-                    toast.show();
+		mDatabase.child(DatabaseKeys.userKey).child(username).addListenerForSingleValueEvent(new ValueEventListener() {
+			@Override
+			public void onDataChange(DataSnapshot dataSnapshot) {
+				System.out.println(dataSnapshot);
+				if (dataSnapshot.exists()) {
+					// username is already taken
+					Toast toast = Toast.makeText(SignUp.this, "Username Already Exists", Toast.LENGTH_SHORT);
+					toast.show();
 
-                } else {
-                    // username is valid
-                    User user = new User(username, email, "1231231234", password, new ArrayList<String>());
-                    System.out.println("hello");
-                    mDatabase.child(DatabaseKeys.userKey).child(username).setValue(user);
+				} else {
+					// username is valid
+					User user = new User(username, email, "1231231234", password, new ArrayList<String>());
+					System.out.println("hello");
+					mDatabase.child(DatabaseKeys.userKey).child(username).setValue(user);
 
-                    mDatabase.child(DatabaseKeys.userKey).child(username).child("friends").child("bob").setValue("bob");
+					mDatabase.child(DatabaseKeys.userKey).child(username).child("friends").child("bob").setValue("bob");
 
-                    goToHomeActivity();
-                }
-            }
+					goToHomeActivity();
+				}
+			}
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("cancelled");
-            }
-        });
-    }
+			@Override
+			public void onCancelled(DatabaseError databaseError) {
+				System.out.println("cancelled");
+			}
+		});
+	}
 
-    /**
-     * Sets up a new intent to take the user to Home Screen
-     */
-    private void goToHomeActivity() {
-        Intent intent = new Intent(this, HomeScreenActivity.class);
-        intent.putExtra("username", username);
-        startActivity(intent);
-    }
+	/**
+	 * Sets up a new intent to take the user to Home Screen
+	 */
+	private void goToHomeActivity() {
+		Intent intent = new Intent(this, HomeScreenActivity.class);
+		intent.putExtra("username", username);
+		startActivity(intent);
+	}
 }
