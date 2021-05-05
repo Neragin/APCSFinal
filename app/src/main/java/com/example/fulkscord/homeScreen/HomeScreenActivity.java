@@ -2,6 +2,10 @@ package com.example.fulkscord.homeScreen;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +35,7 @@ public class HomeScreenActivity extends AppCompatActivity {
 	private ArrayList<String> s1;
 	private String user;
 	private DatabaseReference mDatabase;
+	private EditText newFriend;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,12 @@ public class HomeScreenActivity extends AppCompatActivity {
 
 		mDatabase = FirebaseDatabase.getInstance().getReference();
 		s1 = new ArrayList<String>();
+		newFriend = (EditText) findViewById(R.id.friends);
+
+		newFriend.setOnKeyListener((v, keyCode, event) -> {
+			if(event.getAction() == KeyEvent.ACTION_DOWN && (keyCode == KeyEvent.KEYCODE_ENTER)) addFriend(); //Checks if it is pressed and is entered
+			return false;
+		});
 
 		Intent intent = getIntent();
 		Bundle bundle = intent.getExtras();
@@ -91,5 +102,29 @@ public class HomeScreenActivity extends AppCompatActivity {
 		}
 
 
+	}
+
+	private void addFriend() {
+		String name = newFriend.getText().toString().trim();
+
+		mDatabase.child(DatabaseKeys.userKey).addValueEventListener(new ValueEventListener() {
+			@Override
+			public void onDataChange(@NonNull DataSnapshot snapshot) {
+				for(DataSnapshot ds : snapshot.getChildren()){
+					if(ds.child("username").getValue().toString().equals(name)){
+						mDatabase.child(DatabaseKeys.userKey).child(name).child(DatabaseKeys.friendsKey).child(user).setValue(user);
+						mDatabase.child(DatabaseKeys.userKey).child(user).child(DatabaseKeys.friendsKey).child(name).setValue(name);
+						return;
+					}
+				}
+				Toast.makeText(HomeScreenActivity.this, "failed to make friend", Toast.LENGTH_SHORT).show();
+
+			}
+
+			@Override
+			public void onCancelled(@NonNull DatabaseError error) {
+
+			}
+		});
 	}
 }

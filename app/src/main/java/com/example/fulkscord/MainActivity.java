@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.fulkscord.directMessage.DirectMessageActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -30,6 +31,13 @@ public class MainActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		//TEMPORARY: Meant for testing messages
+//
+//		Intent intent = new Intent(MainActivity.this, DirectMessageActivity.class);
+//		intent.putExtra("username", "kkhulbe5");
+//		intent.putExtra("friend", "bob");
+
 		setUpButtons();
 
 	}

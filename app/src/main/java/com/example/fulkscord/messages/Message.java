@@ -26,6 +26,7 @@ public class Message {
 		this.key = key;
 		this.sender = sender;
 		this.date = date;
+		this.receiver = receiver;
 	}
 
 	/**
@@ -116,5 +117,9 @@ public class Message {
 	 */
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public String toString(){
+		return sender + " to " + receiver + ": " + text;
 	}
 }

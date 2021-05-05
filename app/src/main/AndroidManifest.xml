@@ -8,8 +8,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Fulkscord">
-        <activity android:name=".directMessage.DirectMessageActivity"></activity>
+        android:theme="@style/Theme.Fulkscord"
+        >
+        <activity android:name=".directMessage.DirectMessageActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".homeScreen.HomeScreenActivity"
             android:exported="true" />
