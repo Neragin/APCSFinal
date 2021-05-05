@@ -26,6 +26,7 @@ public class Message {
 		this.key = key;
 		this.sender = sender;
 		this.date = date;
+		this.receiver = receiver;
 	}
 
 	/**

@@ -12,14 +12,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.fulkscord.R;
 import com.example.fulkscord.messages.Message;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Stack;
 
+/**
+ * The type Dm adapter.
+ */
 public class DMAdapter extends RecyclerView.Adapter<DMAdapter.ViewHolder>{
 
-    private LinkedList<Message> messages;
+    private ArrayList
+            <Message> messages;
 
-    public DMAdapter(DirectMessageActivity directMessageActivity, @NonNull LinkedList<Message> messages) {
+    /**
+     * Instantiates a new Dm adapter.
+     *
+     * @param directMessageActivity the direct message activity
+     * @param messages              the messages
+     */
+    public DMAdapter(DirectMessageActivity directMessageActivity, @NonNull ArrayList<Message> messages) {
         this.messages = messages;
     }
 
@@ -37,19 +48,39 @@ public class DMAdapter extends RecyclerView.Adapter<DMAdapter.ViewHolder>{
         return messages.size();
     }
 
+    /**
+     * The type View holder, which uses the RecyclerView ViewHolder, for the main adapter.
+     */
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         private TextView username;
         private TextView message;
+
+        /**
+         * Instantiates a new View holder to add the username and message.
+         *
+         * @param itemView the item view
+         */
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             username = itemView.findViewById(R.id.name);
             message = itemView.findViewById(R.id.m);
         }
+
+        /**
+         * Gets username.
+         *
+         * @return the username
+         */
         public TextView getUsername() {
             return username;
         }
 
+        /**
+         * Gets message.
+         *
+         * @return the message
+         */
         public TextView getMessage() {
             return message;
         }

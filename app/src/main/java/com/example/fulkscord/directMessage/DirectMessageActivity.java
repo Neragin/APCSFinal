@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.example.fulkscord.DatabaseKeys;
 import com.example.fulkscord.R;
@@ -24,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.Stack;
@@ -38,8 +40,14 @@ public class DirectMessageActivity extends AppCompatActivity {
 	private RecyclerView recyclerView;
 	private EditText sendMessage;
 
+	/**
+	 * The Dm adapter.
+	 */
 	DMAdapter dmAdapter;
-	LinkedList<Message> messages;
+	/**
+	 * The Messages.
+	 */
+	ArrayList<Message> messages;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,13 +78,17 @@ public class DirectMessageActivity extends AppCompatActivity {
 		 * 2. Recycler View to display
 		 * 3. POST and GET from firebase
 		 */
-		messages = new LinkedList<Message>();
+		messages = new ArrayList<>();
+//		getAllMessages();
 		dmAdapter = new DMAdapter(this, messages);
-		sendMessage("Hello world");
 		recyclerView.setAdapter(dmAdapter);
-		recyclerView.setLayoutManager(new LinearLayoutManager(this));
+		LinearLayoutManager fulk = new LinearLayoutManager(this);
+		recyclerView.setLayoutManager(fulk);
 	}
 
+	/**
+	 * Respond to enter.
+	 */
 	public void respondToEnter(){
 		/**
 		 * Should respond to the Enter Keyword
@@ -84,34 +96,45 @@ public class DirectMessageActivity extends AppCompatActivity {
 		String message = sendMessage.getText().toString().trim();
 		sendMessage(message);
 		sendMessage.setText("");
-		System.out.println(getAllMessages().size());
 //		dmAdapter.notifyDataSetChanged();
-		System.out.println(messages);
+//		System.out.println("LIST IS: " + messages.toString());
+		getAllMessages();
+		recyclerView.smoothScrollToPosition(recyclerView.getAdapter().getItemCount());
 
 	}
 
+	/**
+	 * Send message.
+	 *
+	 * @param text the text
+	 */
 	public void sendMessage(String text){
 		Message msg = new Message(text, "000000", user, friend, new Date());
-		mDatabase.child(DatabaseKeys.dmKey).child(Integer.toString((user + friend).hashCode())).child(new Date().toString()).setValue(msg);
+		mDatabase.child(DatabaseKeys.dmKey).child(Integer.toString(user.hashCode() + friend.hashCode())).child(new Date().toString()).setValue(msg);
 	}
 
-	//TODO(NEED TO FIX THIS)
-	public LinkedList<Message> getAllMessages(){
-		LinkedList<Message> lst = new LinkedList<Message>();
+	/**
+	 * Get all messages.
+	 */
+//TODO(NEED TO FIX THIS)
+	public void getAllMessages(){
+		LinkedList<Message> lst = new LinkedList<>();
 
-		mDatabase.child(DatabaseKeys.dmKey).child(Integer.toString((user + friend).hashCode())).addValueEventListener(new ValueEventListener() {
+
+
+		mDatabase.child(DatabaseKeys.dmKey).child(Integer.toString(user.hashCode() + friend.hashCode())).addValueEventListener(new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot snapshot) {
-				System.out.println(snapshot.getChildrenCount());
+				messages.clear();
 				for(DataSnapshot ds : snapshot.getChildren()){
 //					System.out.println(ds);
 					Message msg = new Message(ds.child("text").getValue().toString(), ds.child("key").getValue().toString(), ds.child("sender").getValue().toString(), "me?", new Date()); //need to actually do smthng w/ me?
-					if(!messages.contains(msg)) messages.add(msg);
-//					System.out.println(msg.toString());
-//					lst.add((Message) ds.getValue()); //may break the code
-//					System.out.println("here");
+					messages.add(msg);
+					System.out.println(msg.toString());
 				}
-//				dmAdapter.notifyDataSetChanged();
+				dmAdapter.notifyDataSetChanged();
+
+
 			}
 
 			@Override
@@ -119,9 +142,5 @@ public class DirectMessageActivity extends AppCompatActivity {
 
 			}
 		});
-		while(lst == null) {
-			//yeah i know, sketchy
-		}
-		return lst;
 	}
 }

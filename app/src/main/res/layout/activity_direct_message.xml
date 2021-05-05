@@ -5,28 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".directMessage.DirectMessageActivity">
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="683dp">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="683dp"
-        android:background="@drawable/background_gradient"
-        app:layout_constraintBottom_toTopOf="@+id/sendMessage"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="MissingConstraints"
-        android:id="@+id/messages">
+    </ScrollView>
 
-    </androidx.recyclerview.widget.RecyclerView>
 
     <EditText
         android:id="@+id/sendMessage"
-        android:background="@color/black"
         android:layout_width="match_parent"
         android:layout_height="50sp"
+        android:background="@color/black"
         android:hint="Message:"
+        android:textColor="#FFFFFF"
         android:textColorHint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
