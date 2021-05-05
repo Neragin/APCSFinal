@@ -1,5 +1,6 @@
 package com.example.fulkscord.directMessage;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,10 +24,10 @@ public class DMAdapter extends RecyclerView.Adapter<DMAdapter.ViewHolder>{
     }
 
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_direct_message, parent, false));
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.message, parent, false));
     }
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         holder.getUsername().setText(messages.get(position).getSender());
         holder.getMessage().setText(messages.get(position).getText());
     }
@@ -43,7 +44,7 @@ public class DMAdapter extends RecyclerView.Adapter<DMAdapter.ViewHolder>{
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             username = itemView.findViewById(R.id.name);
-            message = itemView.findViewById(R.id.message);
+            message = itemView.findViewById(R.id.m);
         }
         public TextView getUsername() {
             return username;
