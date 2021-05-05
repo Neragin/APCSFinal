@@ -9,9 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Fulkscord"
-        android:windowSoftInputMode="stateVisible|adjustResize"
         >
-        <activity android:name=".directMessage.DirectMessageActivity"></activity>
+        <activity android:name=".directMessage.DirectMessageActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".homeScreen.HomeScreenActivity"
             android:exported="true" />

@@ -11,8 +11,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.example.fulkscord.DatabaseKeys;
 import com.example.fulkscord.R;
@@ -64,6 +66,8 @@ public class DirectMessageActivity extends AppCompatActivity {
 		mDatabase = FirebaseDatabase.getInstance().getReference();
 		recyclerView = findViewById(R.id.messages);
 
+		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
 		sendMessage.setOnKeyListener(new View.OnKeyListener() {
 			@Override
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -99,7 +103,7 @@ public class DirectMessageActivity extends AppCompatActivity {
 //		dmAdapter.notifyDataSetChanged();
 //		System.out.println("LIST IS: " + messages.toString());
 		getAllMessages();
-		recyclerView.smoothScrollToPosition(recyclerView.getAdapter().getItemCount());
+		((ScrollView) findViewById(R.id.fulk)).fullScroll(ScrollView.FOCUS_DOWN);
 
 	}
 
