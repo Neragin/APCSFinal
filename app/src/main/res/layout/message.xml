@@ -2,33 +2,33 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/message"
     android:layout_width="match_parent"
     android:layout_height="105dp"
     android:layout_centerHorizontal="true"
     android:gravity="clip_horizontal|clip_vertical|center_vertical"
-    android:id="@+id/message">
-
-
+    tools:ignore="ExtraText">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleX="1"
-        android:text="Message..."
-        android:layout_centerVertical="true"
-        android:textSize="50sp"
-        android:textColor="@color/white"
-        android:background="@color/black"/>
-
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/name"
+    android:text=""/>
 
     <TextView
-        android:id="@+id/border2"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:background="#808080" />
+    android:layout_width="408dp"
+    android:layout_height="53dp"
+    android:layout_alignParentEnd="true"
+    android:layout_marginStart="0dp"
+    android:layout_marginEnd="3dp"
+    android:layout_toEndOf="@+id/name"
+    android:background="@color/black"
+    android:scaleX="1"
+    android:text="Message..."
+    android:textColor="@color/white"
+    android:id="@+id/m"
+    android:textSize="30sp" />
 
 
 </RelativeLayout>

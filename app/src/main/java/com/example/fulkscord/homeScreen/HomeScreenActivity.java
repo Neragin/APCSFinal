@@ -19,59 +19,77 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * The type Home screen activity.
+ */
 public class HomeScreenActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView;
-    ArrayList<String> s1;
-    String user;
-    private DatabaseReference mDatabase;
+	int friendChildren;
+	boolean firstRead = true;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_screen);
+	private RecyclerView recyclerView;
+	private ArrayList<String> s1;
+	private String user;
+	private DatabaseReference mDatabase;
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        s1 = new ArrayList<String>();
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.home_screen);
 
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        user = bundle.getString("username");
+		mDatabase = FirebaseDatabase.getInstance().getReference();
+		s1 = new ArrayList<String>();
 
-        //s1 = new String[]{"test", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2" , "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2" , "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2" , "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2"};
+		Intent intent = getIntent();
+		Bundle bundle = intent.getExtras();
+		user = bundle.getString("username");
 
-        recyclerView = findViewById(R.id.recyclerview);
+		//s1 = new String[]{"test", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2" , "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2" , "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2" , "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2"};
 
-        Adapter adapter = new Adapter(this, s1, user);
+		recyclerView = findViewById(R.id.recyclerview);
 
-
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
-        mDatabase.child(DatabaseKeys.userKey).child(user).child("friends").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                for(DataSnapshot ds : snapshot.getChildren()){
-                    if(!s1.contains(ds.getValue().toString())) s1.add(ds.getValue().toString());
-                }
-                adapter.notifyItemInserted(s1.size()-1);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+		Adapter adapter = new Adapter(this, s1, user);
 
 
+		recyclerView.setAdapter(adapter);
+		recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-    }
+		mDatabase.child(DatabaseKeys.userKey).child(user).child(DatabaseKeys.friendsKey).addValueEventListener(new ValueEventListener() {
+			@Override
+			public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+				if(firstRead) {
+					friendChildren = (int) snapshot.getChildrenCount();
+					firstRead = false;
+				}
+
+				if(snapshot.getChildrenCount() < friendChildren){
+					s1.clear();
+					for(DataSnapshot ds : snapshot.getChildren()){
+						s1.add(ds.getValue().toString());
+					}
+					friendChildren = (int) snapshot.getChildrenCount();
+					adapter.notifyDataSetChanged();
+				}
+
+				for (DataSnapshot ds : snapshot.getChildren()) {
+					if (!s1.contains(ds.getValue().toString())) s1.add(ds.getValue().toString());
+				}
+				adapter.notifyItemInserted(s1.size() - 1);
+			}
+
+			@Override
+			public void onCancelled(@NonNull DatabaseError error) {
+
+			}
+		});
+
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+
+	}
 }
