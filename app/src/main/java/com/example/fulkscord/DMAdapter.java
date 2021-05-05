@@ -18,10 +18,6 @@ public class DMAdapter extends RecyclerView.Adapter<DMAdapter.ViewHolder>{
 
     private LinkedList<Message> messages;
 
-    public DMAdapter(@NonNull Stack<String> users, LinkedList<Message> messages) {
-        this.messages = messages;
-    }
-
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_direct_message, parent, false));
     }

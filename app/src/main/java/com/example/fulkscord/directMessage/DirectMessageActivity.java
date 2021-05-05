@@ -38,6 +38,9 @@ public class DirectMessageActivity extends AppCompatActivity {
 	private RecyclerView recyclerView;
 	private EditText sendMessage;
 
+	DMAdapter dmAdapter;
+	LinkedList<Message> messages;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -67,9 +70,8 @@ public class DirectMessageActivity extends AppCompatActivity {
 		 * 2. Recycler View to display
 		 * 3. POST and GET from firebase
 		 */
-		LinkedList<Message> messages = new LinkedList<Message>();
-		messages.add(new Message("ur gay",  "123", "ur mom", "ur dad", new Date()));
-		DMAdapter dmAdapter = new DMAdapter(this, messages);
+		messages = new LinkedList<Message>();
+		dmAdapter = new DMAdapter(this, messages);
 		sendMessage("Hello world");
 		recyclerView.setAdapter(dmAdapter);
 		recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -82,7 +84,9 @@ public class DirectMessageActivity extends AppCompatActivity {
 		String message = sendMessage.getText().toString().trim();
 		sendMessage(message);
 		sendMessage.setText("");
-		System.out.println(getAllMessages());
+		System.out.println(getAllMessages().size());
+//		dmAdapter.notifyDataSetChanged();
+		System.out.println(messages);
 
 	}
 
@@ -98,12 +102,16 @@ public class DirectMessageActivity extends AppCompatActivity {
 		mDatabase.child(DatabaseKeys.dmKey).child(Integer.toString((user + friend).hashCode())).addValueEventListener(new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot snapshot) {
+				System.out.println(snapshot.getChildrenCount());
 				for(DataSnapshot ds : snapshot.getChildren()){
-					lst.add(new Message(ds.child("text").getValue().toString(), ds.child("key").getValue().toString(), ds.child("sender").getValue().toString(), ds.child("reciever").getValue().toString(), (Date) ds.child("date").getValue()));
-
+//					System.out.println(ds);
+					Message msg = new Message(ds.child("text").getValue().toString(), ds.child("key").getValue().toString(), ds.child("sender").getValue().toString(), "me?", new Date()); //need to actually do smthng w/ me?
+					if(!messages.contains(msg)) messages.add(msg);
+//					System.out.println(msg.toString());
 //					lst.add((Message) ds.getValue()); //may break the code
-					System.out.println("here");
+//					System.out.println("here");
 				}
+//				dmAdapter.notifyDataSetChanged();
 			}
 
 			@Override
@@ -111,7 +119,9 @@ public class DirectMessageActivity extends AppCompatActivity {
 
 			}
 		});
-		while(lst.isEmpty()) System.out.println("waiting"); //sketchy af but idgaf
+		while(lst == null) {
+			//yeah i know, sketchy
+		}
 		return lst;
 	}
 }

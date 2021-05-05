@@ -117,4 +117,8 @@ public class Message {
 	public void setDate(Date date) {
 		this.date = date;
 	}
+
+	public String toString(){
+		return sender + " to " + receiver + ": " + text;
+	}
 }
