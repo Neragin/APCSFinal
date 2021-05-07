@@ -11,7 +11,7 @@
         android:theme="@style/Theme.Fulkscord"
         >
         <activity android:name=".directMessage.DirectMessageActivity"
-            android:windowSoftInputMode="adjustResize" />
+            />
         <activity
             android:name=".homeScreen.HomeScreenActivity"
             android:exported="true" />
