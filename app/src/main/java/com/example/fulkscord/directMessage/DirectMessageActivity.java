@@ -83,11 +83,13 @@ public class DirectMessageActivity extends AppCompatActivity {
 		 * 3. POST and GET from firebase
 		 */
 		messages = new ArrayList<>();
-//		getAllMessages();
 		dmAdapter = new DMAdapter(this, messages);
 		recyclerView.setAdapter(dmAdapter);
-		LinearLayoutManager fulk = new LinearLayoutManager(this);
-		recyclerView.setLayoutManager(fulk);
+		LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+		linearLayoutManager.setStackFromEnd(true);
+		recyclerView.setLayoutManager(linearLayoutManager);
+		recyclerView.scrollToPosition(messages.size() - 1);
+		getAllMessages();
 	}
 
 	/**
@@ -103,7 +105,8 @@ public class DirectMessageActivity extends AppCompatActivity {
 //		dmAdapter.notifyDataSetChanged();
 //		System.out.println("LIST IS: " + messages.toString());
 		getAllMessages();
-		((ScrollView) findViewById(R.id.fulk)).fullScroll(ScrollView.FOCUS_DOWN);
+//		((ScrollView) findViewById(R.id.fulk)).fullScroll(ScrollView.FOCUS_DOWN);
+//		recyclerView.smoothScrollToPosition(messages.size() - 1);
 
 	}
 
@@ -138,6 +141,8 @@ public class DirectMessageActivity extends AppCompatActivity {
 				}
 				dmAdapter.notifyDataSetChanged();
 
+				if(recyclerView.canScrollVertically(1)) recyclerView.smoothScrollToPosition(messages.size() - 1);
+
 
 			}
 
@@ -146,5 +151,6 @@ public class DirectMessageActivity extends AppCompatActivity {
 
 			}
 		});
+
 	}
 }
