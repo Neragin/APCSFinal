@@ -88,42 +88,33 @@ public class Login extends AppCompatActivity {
 	 * @param users - Map<String, Object> of users in the database
 	 */
 	private void checkIfCredentialsAreValid(Map<String, Object> users) {
-        Toast toast = null;
-
+        Toast toast;
+		toast = Toast.makeText(this, "yes!!", Toast.LENGTH_SHORT);
 		for (Map.Entry<String, Object> entry : users.entrySet()) {
 
 			//Get user map
 			Map singleUser = (Map) entry.getValue();
 			//Get phone field and append to list
 			if (singleUser.get("username").toString().equals(usernameString) && singleUser.get("password").toString().equals(passwordString)) {
-
-                if (toast != null) {
-                    toast.cancel();
-                }
-				show("Successful Login", toast);
-				toast = null;
+				fulkster("Successful Login", toast, "green");
 				Intent intent = new Intent(this, HomeScreenActivity.class);
 				intent.putExtra("username", usernameString);
 				startActivity(intent);
 
 			} else if (!(singleUser.get("username").toString().equals(usernameString) && singleUser.get("password").toString().equals(passwordString))) {
-                if (toast != null) {
-                    toast.cancel();
-                }
-                show("Invalid Credentials", toast);
-                toast = null;
+				fulkster("Invalid Credentials", toast, "red");
 			}
 		}
 
 	}
-	//Toaster Method?!
-	private void show (String message, Toast Toaster) {
+	//Bradley Fulkley's Toaster Method?!
+	private void fulkster (String message, Toast Toaster, String color) {
 		try
 		{
 			Toaster.getView().isShown();
 			Toaster.setText(message);
 		} catch (Exception e) {
-			Toaster = Toast.makeText(this, message, Toast.LENGTH_LONG);
+			Toaster.makeText(this, Html.fromHtml("<font color='" + color + "'><b>" + message + "</b></font>"), Toast.LENGTH_LONG);
 		}
 		Toaster.show();
 	}

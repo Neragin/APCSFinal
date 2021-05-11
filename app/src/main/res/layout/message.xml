@@ -14,8 +14,9 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:background="#40000000"
+        android:fontFamily="sans-serif-light"
         android:text="TestName"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,14 +26,16 @@
 
     <TextView
         android:id="@+id/m"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#80000000"
+        android:fontFamily="sans-serif-condensed"
         android:scaleX="1"
         android:text="Message..."
         android:textColor="@color/white"
-        android:textSize="30sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
