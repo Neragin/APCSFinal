@@ -38,4 +38,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
+    <ImageView
+        android:id="@+id/fulkPhone"
+        android:layout_width="50dp"
+        android:layout_height="52dp"
+        android:src="@drawable/ic_baseline_phone_24"
+        app:layout_constraintBottom_toBottomOf="@+id/sendMessage"
+        app:layout_constraintEnd_toEndOf="@+id/sendMessage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/sendMessage" />
 </androidx.constraintlayout.widget.ConstraintLayout>

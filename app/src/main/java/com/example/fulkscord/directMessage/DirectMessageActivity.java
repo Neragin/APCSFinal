@@ -3,20 +3,28 @@ package com.example.fulkscord.directMessage;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import com.example.fulkscord.DatabaseKeys;
+import com.example.fulkscord.MainActivity;
 import com.example.fulkscord.R;
 import com.example.fulkscord.homeScreen.Adapter;
 import com.example.fulkscord.messages.Message;
@@ -41,6 +49,8 @@ public class DirectMessageActivity extends AppCompatActivity {
 	private DatabaseReference mDatabase;
 	private RecyclerView recyclerView;
 	private EditText sendMessage;
+	private static final int REQUEST_CALL = 1;
+	private String otherPhNum = "tel:16508616762";
 
 	/**
 	 * The Dm adapter.
@@ -90,6 +100,41 @@ public class DirectMessageActivity extends AppCompatActivity {
 		recyclerView.setLayoutManager(linearLayoutManager);
 		recyclerView.scrollToPosition(messages.size() - 1);
 		getAllMessages();
+
+		findViewById(R.id.fulkPhone).setOnClickListener(new View.OnClickListener(){
+
+			@Override
+			public void onClick(View view) {
+				fulkCall();
+			}
+		});
+	}
+
+	public void fulkCall()
+	{
+		if (ContextCompat.checkSelfPermission(DirectMessageActivity.this,
+				Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+
+			ActivityCompat.requestPermissions(DirectMessageActivity.this, new String[] {Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+
+		} else {
+			startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(otherPhNum)));
+		}
+	}
+	@Override
+	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+		if (requestCode == REQUEST_CALL)
+		{
+			if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+				fulkCall();
+			}
+			else
+			{
+				Toast.makeText(this, "Permission DENIED", Toast.LENGTH_SHORT).show();
+			}
+		}
 	}
 
 	/**
