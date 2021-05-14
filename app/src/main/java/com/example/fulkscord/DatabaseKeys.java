@@ -11,6 +11,8 @@ public class DatabaseKeys {
 	 */
 	public static String userKey, friendsKey, dmKey;
 
+	//May need to add something for all children also?
+
 	static {
 		userKey = "user";
 		friendsKey = "friends";
