@@ -38,6 +38,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Stack;
 
 /**
@@ -50,7 +51,7 @@ public class DirectMessageActivity extends AppCompatActivity {
 	private RecyclerView recyclerView;
 	private EditText sendMessage;
 	private static final int REQUEST_CALL = 1;
-	private String otherPhNum = "tel:16508616762";
+	private String otherPhNum = "tel:";
 
 	/**
 	 * The Dm adapter.
@@ -83,6 +84,24 @@ public class DirectMessageActivity extends AppCompatActivity {
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
 				if(event.getAction() == KeyEvent.ACTION_DOWN && (keyCode == KeyEvent.KEYCODE_ENTER)) respondToEnter(); //Checks if it is pressed and is entered
 				return false;
+			}
+		});
+		mDatabase.child("user").addListenerForSingleValueEvent(new ValueEventListener() {
+			@Override
+			public void onDataChange(@NonNull DataSnapshot snapshot) {
+				for (Map.Entry<String, Object> user : ((Map<String, Object>) snapshot.getValue()).entrySet())
+				{
+					Map f = (Map) user.getValue();
+					if (f.get("username").toString().trim().equals(friend))
+					{
+						otherPhNum += f.get("phoneNumber");
+					}
+				}
+			}
+
+			@Override
+			public void onCancelled(@NonNull DatabaseError error) {
+				System.out.println("Oops");
 			}
 		});
 
