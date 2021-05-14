@@ -86,6 +86,8 @@ public class DirectMessageActivity extends AppCompatActivity {
 				return false;
 			}
 		});
+
+		//Updates user's phone number
 		mDatabase.child("user").addListenerForSingleValueEvent(new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot snapshot) {
