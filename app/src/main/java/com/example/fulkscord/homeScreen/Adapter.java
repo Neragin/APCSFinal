@@ -19,9 +19,9 @@ import java.util.ArrayList;
  * The type Adapter.
  */
 public class Adapter extends RecyclerView.Adapter<Adapter.viewHolder> {
-	private ArrayList<String> localDataSet;
-	private String user;
-	private Context context;
+	private final ArrayList<String> localDataSet;
+	private final String user;
+	private final Context context;
 
 	/**
 	 * Instantiates a new Adapter.
@@ -67,7 +67,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.viewHolder> {
 		/**
 		 * The My btn 1.
 		 */
-		private Button myBtn1;
+		private final Button myBtn1;
 
 
 		/**
