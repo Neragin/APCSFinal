@@ -1,13 +1,11 @@
 package com.example.fulkscord.messages;
 
-import android.widget.TextView;
-
 import java.util.Date;
 
 /**
  * Individual message that will be used to display on screen
  *
- * @author Niranjen M.
+ * @author Niranjan Mathirajan
  */
 public class Message {
 
@@ -121,7 +119,7 @@ public class Message {
 		this.date = date;
 	}
 
-	public String toString(){
+	public String toString() {
 		return sender + " to " + receiver + ": " + text;
 	}
 }
