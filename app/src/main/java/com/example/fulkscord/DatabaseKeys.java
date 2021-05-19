@@ -3,6 +3,8 @@ package com.example.fulkscord;
 /**
  * Common keys used in the database
  * Used to prevent writing the wrong keys
+ *
+ * @author Kaustubh Khulbe
  */
 public class DatabaseKeys {
 

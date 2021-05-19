@@ -7,6 +7,8 @@ import java.util.Stack;
 
 /**
  * Direct messages, which are several messages, with users in question
+ *
+ * @author Leo X
  */
 public class DirectMessages {
 

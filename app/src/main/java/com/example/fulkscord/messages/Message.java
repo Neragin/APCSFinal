@@ -6,6 +6,8 @@ import java.util.Date;
 
 /**
  * Individual message that will be used to display on screen
+ *
+ * @author Niranjen M.
  */
 public class Message {
 

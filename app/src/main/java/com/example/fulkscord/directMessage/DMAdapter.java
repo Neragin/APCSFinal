@@ -18,6 +18,8 @@ import java.util.Stack;
 
 /**
  * The type Dm adapter.
+ *
+ * @author Leo X
  */
 public class DMAdapter extends RecyclerView.Adapter<DMAdapter.ViewHolder>{
 

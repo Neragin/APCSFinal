@@ -17,6 +17,8 @@ import java.util.ArrayList;
 
 /**
  * The type Adapter.
+ *
+ * @author Niranjen
  */
 public class Adapter extends RecyclerView.Adapter<Adapter.viewHolder> {
 	private final ArrayList<String> localDataSet;

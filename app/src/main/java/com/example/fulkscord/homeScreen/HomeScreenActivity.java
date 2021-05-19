@@ -24,7 +24,9 @@ import java.util.ArrayList;
 import java.util.Map;
 
 /**
- * The type Home screen activity.
+ * The main Home screen activity.
+ *
+ * @author Kaustubh K
  */
 public class HomeScreenActivity extends AppCompatActivity {
 

@@ -46,6 +46,8 @@ import java.util.Stack;
 
 /**
  * The type Direct message activity.
+ *
+ * @author Kaustubh
  */
 public class DirectMessageActivity extends AppCompatActivity {
 
