@@ -2,7 +2,6 @@ package com.example.fulkscord.messages;
 
 import com.example.fulkscord.user.User;
 
-import java.util.LinkedList;
 import java.util.Stack;
 
 /**

@@ -1,15 +1,14 @@
 package com.example.fulkscord;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.fulkscord.homeScreen.HomeScreenActivity;
 import com.google.firebase.database.DataSnapshot;
@@ -91,7 +90,7 @@ public class Login extends AppCompatActivity {
 	 * @param users - Map<String, Object> of users in the database
 	 */
 	private void checkIfCredentialsAreValid(Map<String, Object> users) {
-        Toast toast = null;
+		Toast toast = null;
 
 		for (Map.Entry<String, Object> entry : users.entrySet()) {
 
@@ -107,7 +106,7 @@ public class Login extends AppCompatActivity {
 
 			} else if (!(singleUser.get("username").toString().equals(usernameString) && singleUser.get("password").toString().equals(passwordString))) {
 
-                fulkster("Invalid Credentials", toast);
+				fulkster("Invalid Credentials", toast);
 			}
 		}
 
@@ -117,17 +116,18 @@ public class Login extends AppCompatActivity {
 	/**
 	 * Meant to bypass the problems faced with having firebase asynchronously call
 	 * to remote database and messing with toast messages
+	 *
 	 * @param message - message that toast should display
 	 * @param Toaster - toast object to display
 	 */
-	private void fulkster (String message, Toast Toaster) {
-			if (Toaster != null) {
-				Toaster.cancel();
-			} else {
-				Toaster = Toast.makeText(this, message, Toast.LENGTH_LONG);
-                Toaster.show();
-			}
-
+	private void fulkster(String message, Toast Toaster) {
+		if (Toaster != null) {
+			Toaster.cancel();
+		} else {
+			Toaster = Toast.makeText(this, message, Toast.LENGTH_LONG);
+			Toaster.show();
 		}
+
 	}
+}
 

@@ -3,7 +3,6 @@ package com.example.fulkscord.homeScreen;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -21,7 +20,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * The main Home screen activity.
@@ -48,11 +46,10 @@ public class HomeScreenActivity extends AppCompatActivity {
 		newFriend = findViewById(R.id.friends);
 
 		newFriend.setOnKeyListener((v, keyCode, event) -> {
-			if(event.getAction() == KeyEvent.ACTION_DOWN && (keyCode == KeyEvent.KEYCODE_ENTER))
-				{
-					addFriend(); //Checks if it is pressed and is entered
-					newFriend.getText().clear();
-				}
+			if (event.getAction() == KeyEvent.ACTION_DOWN && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+				addFriend(); //Checks if it is pressed and is entered
+				newFriend.getText().clear();
+			}
 			return false;
 		});
 
@@ -74,14 +71,14 @@ public class HomeScreenActivity extends AppCompatActivity {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-				if(firstRead) {
+				if (firstRead) {
 					friendChildren = (int) snapshot.getChildrenCount();
 					firstRead = false;
 				}
 
-				if(snapshot.getChildrenCount() < friendChildren){
+				if (snapshot.getChildrenCount() < friendChildren) {
 					s1.clear();
-					for(DataSnapshot ds : snapshot.getChildren()){
+					for (DataSnapshot ds : snapshot.getChildren()) {
 						s1.add(ds.getValue().toString());
 					}
 					friendChildren = (int) snapshot.getChildrenCount();
@@ -112,7 +109,7 @@ public class HomeScreenActivity extends AppCompatActivity {
 	private void addFriend() {
 		String name = newFriend.getText().toString().trim();
 
-		if (name.equals(user)){
+		if (name.equals(user)) {
 			Toast.makeText(HomeScreenActivity.this, "You cannot add yourself as a friend", Toast.LENGTH_SHORT).show();
 			return;
 		}
@@ -120,8 +117,8 @@ public class HomeScreenActivity extends AppCompatActivity {
 		mDatabase.child(DatabaseKeys.userKey).addValueEventListener(new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot snapshot) {
-				for(DataSnapshot ds : snapshot.getChildren()){
-					if(ds.child("username").getValue().toString().equals(name)){
+				for (DataSnapshot ds : snapshot.getChildren()) {
+					if (ds.child("username").getValue().toString().equals(name)) {
 						mDatabase.child(DatabaseKeys.userKey).child(name).child(DatabaseKeys.friendsKey).child(user).setValue(user);
 						mDatabase.child(DatabaseKeys.userKey).child(user).child(DatabaseKeys.friendsKey).child(name).setValue(name);
 						return;
