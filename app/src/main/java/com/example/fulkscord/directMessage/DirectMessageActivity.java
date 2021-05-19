@@ -102,7 +102,7 @@ public class DirectMessageActivity extends AppCompatActivity {
 		TextView.OnEditorActionListener EnterOnText = new TextView.OnEditorActionListener() {
 			public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
 				if (actionId == EditorInfo.IME_ACTION_GO) {
-					final String msg = view.getText().toString();
+					final String msg = view.getText().toString().trim();
 					if (!msg.isEmpty()) {
 						// Do whatever you need here
 						respondToEnter();
