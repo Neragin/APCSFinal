@@ -18,10 +18,12 @@ import java.util.Stack;
 
 /**
  * The type Dm adapter.
+ *
+ * @author Leo X
  */
 public class DMAdapter extends RecyclerView.Adapter<DMAdapter.ViewHolder>{
 
-    private ArrayList
+    private final ArrayList
             <Message> messages;
 
     /**
@@ -34,6 +36,7 @@ public class DMAdapter extends RecyclerView.Adapter<DMAdapter.ViewHolder>{
         this.messages = messages;
     }
 
+    @NonNull
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.message, parent, false));
     }
@@ -53,8 +56,8 @@ public class DMAdapter extends RecyclerView.Adapter<DMAdapter.ViewHolder>{
      */
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView username;
-        private TextView message;
+        private final TextView username;
+        private final TextView message;
 
         /**
          * Instantiates a new View holder to add the username and message.

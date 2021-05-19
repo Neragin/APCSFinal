@@ -23,6 +23,9 @@ import java.util.Map;
 /**
  * This activity verifies a user's credentials
  * and logs them in, then takes them to Home Screen
+ *
+ * @version 1.0
+ * @author: Kaustubh Khulbe, Leo Xu, Nerangin Mathiranjan
  */
 public class Login extends AppCompatActivity {
 
@@ -97,35 +100,34 @@ public class Login extends AppCompatActivity {
 			//Get phone field and append to list
 			if (singleUser.get("username").toString().equals(usernameString) && singleUser.get("password").toString().equals(passwordString)) {
 
-                if (toast != null) {
-                    toast.cancel();
-                }
-				show("Successful Login", toast);
-				toast = null;
+				fulkster("Successful Login", toast);
 				Intent intent = new Intent(this, HomeScreenActivity.class);
 				intent.putExtra("username", usernameString);
 				startActivity(intent);
 
 			} else if (!(singleUser.get("username").toString().equals(usernameString) && singleUser.get("password").toString().equals(passwordString))) {
-                if (toast != null) {
-                    toast.cancel();
-                }
-                show("Invalid Credentials", toast);
-                toast = null;
+
+                fulkster("Invalid Credentials", toast);
 			}
 		}
 
 	}
-	//Toaster Method?!
-	private void show (String message, Toast Toaster) {
-		try
-		{
-			Toaster.getView().isShown();
-			Toaster.setText(message);
-		} catch (Exception e) {
-			Toaster = Toast.makeText(this, message, Toast.LENGTH_LONG);
+	//Fulk's Epic Toaster Method?!
+
+	/**
+	 * Meant to bypass the problems faced with having firebase asynchronously call
+	 * to remote database and messing with toast messages
+	 * @param message - message that toast should display
+	 * @param Toaster - toast object to display
+	 */
+	private void fulkster (String message, Toast Toaster) {
+			if (Toaster != null) {
+				Toaster.cancel();
+			} else {
+				Toaster = Toast.makeText(this, message, Toast.LENGTH_LONG);
+                Toaster.show();
+			}
+
 		}
-		Toaster.show();
 	}
 
-}

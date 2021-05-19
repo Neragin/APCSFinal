@@ -17,6 +17,8 @@ import com.google.firebase.database.FirebaseDatabase;
  * Here, users are allowed to either sign up and create an account,
  * or log in to a previously existing account. This activity simply
  * leads the user to one of the two proposed options.
+ * @version 1.0
+ * @author: Kaustubh Khulbe
  */
 public class MainActivity extends AppCompatActivity {
 	/**
@@ -31,13 +33,6 @@ public class MainActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
-		//TEMPORARY: Meant for testing messages
-//
-//		Intent intent = new Intent(MainActivity.this, DirectMessageActivity.class);
-//		intent.putExtra("username", "kkhulbe5");
-//		intent.putExtra("friend", "bob");
-
 		setUpButtons();
 
 	}

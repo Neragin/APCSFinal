@@ -3,20 +3,31 @@ package com.example.fulkscord.directMessage;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.fulkscord.DatabaseKeys;
+import com.example.fulkscord.MainActivity;
 import com.example.fulkscord.R;
 import com.example.fulkscord.homeScreen.Adapter;
 import com.example.fulkscord.messages.Message;
@@ -30,10 +41,13 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Stack;
 
 /**
  * The type Direct message activity.
+ *
+ * @author Kaustubh
  */
 public class DirectMessageActivity extends AppCompatActivity {
 
@@ -41,6 +55,16 @@ public class DirectMessageActivity extends AppCompatActivity {
 	private DatabaseReference mDatabase;
 	private RecyclerView recyclerView;
 	private EditText sendMessage;
+	private static final int REQUEST_CALL = 1;
+	private String otherPhNum = "tel:";
+
+	private TextView.OnEditorActionListener listener = (TextView textView, int i, KeyEvent keyEvent) -> {
+		if (i == EditorInfo.IME_ACTION_SEND)
+		{
+			respondToEnter();
+		}
+		return false;
+	};
 
 	/**
 	 * The Dm adapter.
@@ -56,7 +80,7 @@ public class DirectMessageActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_direct_message);
 
-		sendMessage = (EditText) findViewById(R.id.sendMessage);
+		sendMessage = findViewById(R.id.sendMessage);
 
 		Intent intent = getIntent();
 		Bundle bundle = intent.getExtras();
@@ -68,11 +92,51 @@ public class DirectMessageActivity extends AppCompatActivity {
 
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
+//		sendMessage.setOnEditorActionListener(listener);
+
+
+
+		sendMessage.setRawInputType(InputType.TYPE_CLASS_TEXT);
+		sendMessage.setImeOptions(EditorInfo.IME_ACTION_GO);
+
+		TextView.OnEditorActionListener EnterOnText = new TextView.OnEditorActionListener() {
+			public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
+				if (actionId == EditorInfo.IME_ACTION_GO) {
+					final String msg = view.getText().toString().trim();
+					if (!msg.isEmpty()) {
+						// Do whatever you need here
+						respondToEnter();
+					}
+				}
+				return true;
+			}
+		};
+		sendMessage.setOnEditorActionListener(EnterOnText);
 		sendMessage.setOnKeyListener(new View.OnKeyListener() {
 			@Override
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
 				if(event.getAction() == KeyEvent.ACTION_DOWN && (keyCode == KeyEvent.KEYCODE_ENTER)) respondToEnter(); //Checks if it is pressed and is entered
 				return false;
+			}
+		});
+
+		//Updates user's phone number
+		mDatabase.child("user").addListenerForSingleValueEvent(new ValueEventListener() {
+			@Override
+			public void onDataChange(@NonNull DataSnapshot snapshot) {
+				for (Map.Entry<String, Object> user : ((Map<String, Object>) snapshot.getValue()).entrySet())
+				{
+					Map f = (Map) user.getValue();
+					if (f.get("username").toString().trim().equals(friend))
+					{
+						otherPhNum += f.get("phoneNumber");
+					}
+				}
+			}
+
+			@Override
+			public void onCancelled(@NonNull DatabaseError error) {
+				System.out.println("Oops");
 			}
 		});
 
@@ -90,6 +154,41 @@ public class DirectMessageActivity extends AppCompatActivity {
 		recyclerView.setLayoutManager(linearLayoutManager);
 		recyclerView.scrollToPosition(messages.size() - 1);
 		getAllMessages();
+
+		findViewById(R.id.fulkPhone).setOnClickListener(new View.OnClickListener(){
+
+			@Override
+			public void onClick(View view) {
+				fulkCall();
+			}
+		});
+	}
+
+	public void fulkCall()
+	{
+		if (ContextCompat.checkSelfPermission(DirectMessageActivity.this,
+				Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+
+			ActivityCompat.requestPermissions(DirectMessageActivity.this, new String[] {Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+
+		} else {
+			startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(otherPhNum)));
+		}
+	}
+	@Override
+	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+		if (requestCode == REQUEST_CALL)
+		{
+			if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+				fulkCall();
+			}
+			else
+			{
+				Toast.makeText(this, "Permission DENIED", Toast.LENGTH_SHORT).show();
+			}
+		}
 	}
 
 	/**
@@ -102,12 +201,7 @@ public class DirectMessageActivity extends AppCompatActivity {
 		String message = sendMessage.getText().toString().trim();
 		sendMessage(message);
 		sendMessage.setText("");
-//		dmAdapter.notifyDataSetChanged();
-//		System.out.println("LIST IS: " + messages.toString());
 		getAllMessages();
-//		((ScrollView) findViewById(R.id.fulk)).fullScroll(ScrollView.FOCUS_DOWN);
-//		recyclerView.smoothScrollToPosition(messages.size() - 1);
-
 	}
 
 	/**

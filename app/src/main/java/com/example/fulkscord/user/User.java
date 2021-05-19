@@ -3,7 +3,12 @@ package com.example.fulkscord.user;
 import java.util.ArrayList;
 
 /**
- * User object to store in database
+ * User object to store in database. Firebase is well integrated
+ * and an ORDBMS, which means it can directly convert this object
+ * into a json structured object, which is why we've done this to
+ * User and several other classes.
+ *
+ * @author Kaustubh Khulbe
  */
 public class User {
 
