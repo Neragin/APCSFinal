@@ -1,58 +1,51 @@
 package com.example.fulkscord.directMessage;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Bundle;
+import android.text.InputType;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.Manifest;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.Toast;
-
 import com.example.fulkscord.DatabaseKeys;
-import com.example.fulkscord.MainActivity;
 import com.example.fulkscord.R;
-import com.example.fulkscord.homeScreen.Adapter;
 import com.example.fulkscord.messages.Message;
-import com.example.fulkscord.user.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.Map;
-import java.util.Stack;
+import java.util.TimeZone;
 
 /**
  * The type Direct message activity.
+ *
+ * @author Kaustubh
+ * @author: Sources - https://www.youtube.com/watch?v=UDwj5j4tBYg
  */
 public class DirectMessageActivity extends AppCompatActivity {
 
-	private String user, friend;
-	private DatabaseReference mDatabase;
-	private RecyclerView recyclerView;
-	private EditText sendMessage;
 	private static final int REQUEST_CALL = 1;
-	private String otherPhNum = "tel:";
-
 	/**
 	 * The Dm adapter.
 	 */
@@ -61,13 +54,24 @@ public class DirectMessageActivity extends AppCompatActivity {
 	 * The Messages.
 	 */
 	ArrayList<Message> messages;
+	private String user, friend;
+	private DatabaseReference mDatabase;
+	private RecyclerView recyclerView;
+	private EditText sendMessage;
+	private String otherPhNum = "tel:";
+	private final TextView.OnEditorActionListener listener = (TextView textView, int i, KeyEvent keyEvent) -> {
+		if (i == EditorInfo.IME_ACTION_SEND) {
+			respondToEnter();
+		}
+		return false;
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_direct_message);
 
-		sendMessage = (EditText) findViewById(R.id.sendMessage);
+		sendMessage = findViewById(R.id.sendMessage);
 
 		Intent intent = getIntent();
 		Bundle bundle = intent.getExtras();
@@ -79,21 +83,41 @@ public class DirectMessageActivity extends AppCompatActivity {
 
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
+//		sendMessage.setOnEditorActionListener(listener);
+
+
+		sendMessage.setRawInputType(InputType.TYPE_CLASS_TEXT);
+		sendMessage.setImeOptions(EditorInfo.IME_ACTION_GO);
+
+		TextView.OnEditorActionListener EnterOnText = new TextView.OnEditorActionListener() {
+			public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
+				if (actionId == EditorInfo.IME_ACTION_GO) {
+					final String msg = view.getText().toString().trim();
+					if (!msg.isEmpty()) {
+						// Do whatever you need here
+						respondToEnter();
+					}
+				}
+				return true;
+			}
+		};
+		sendMessage.setOnEditorActionListener(EnterOnText);
 		sendMessage.setOnKeyListener(new View.OnKeyListener() {
 			@Override
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
-				if(event.getAction() == KeyEvent.ACTION_DOWN && (keyCode == KeyEvent.KEYCODE_ENTER)) respondToEnter(); //Checks if it is pressed and is entered
+				if (event.getAction() == KeyEvent.ACTION_DOWN && (keyCode == KeyEvent.KEYCODE_ENTER))
+					respondToEnter(); //Checks if it is pressed and is entered
 				return false;
 			}
 		});
+
+		//Updates user's phone number
 		mDatabase.child("user").addListenerForSingleValueEvent(new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot snapshot) {
-				for (Map.Entry<String, Object> user : ((Map<String, Object>) snapshot.getValue()).entrySet())
-				{
+				for (Map.Entry<String, Object> user : ((Map<String, Object>) snapshot.getValue()).entrySet()) {
 					Map f = (Map) user.getValue();
-					if (f.get("username").toString().trim().equals(friend))
-					{
+					if (f.get("username").toString().trim().equals(friend)) {
 						otherPhNum += f.get("phoneNumber");
 					}
 				}
@@ -120,7 +144,7 @@ public class DirectMessageActivity extends AppCompatActivity {
 		recyclerView.scrollToPosition(messages.size() - 1);
 		getAllMessages();
 
-		findViewById(R.id.fulkPhone).setOnClickListener(new View.OnClickListener(){
+		findViewById(R.id.fulkPhone).setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view) {
@@ -129,28 +153,25 @@ public class DirectMessageActivity extends AppCompatActivity {
 		});
 	}
 
-	public void fulkCall()
-	{
+	public void fulkCall() {
 		if (ContextCompat.checkSelfPermission(DirectMessageActivity.this,
-				Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+				Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
 
-			ActivityCompat.requestPermissions(DirectMessageActivity.this, new String[] {Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+			ActivityCompat.requestPermissions(DirectMessageActivity.this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL);
 
 		} else {
 			startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(otherPhNum)));
 		}
 	}
+
 	@Override
 	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-		if (requestCode == REQUEST_CALL)
-		{
-			if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+		if (requestCode == REQUEST_CALL) {
+			if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 				fulkCall();
-			}
-			else
-			{
+			} else {
 				Toast.makeText(this, "Permission DENIED", Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -159,19 +180,14 @@ public class DirectMessageActivity extends AppCompatActivity {
 	/**
 	 * Respond to enter.
 	 */
-	public void respondToEnter(){
+	public void respondToEnter() {
 		/**
 		 * Should respond to the Enter Keyword
 		 */
 		String message = sendMessage.getText().toString().trim();
 		sendMessage(message);
 		sendMessage.setText("");
-//		dmAdapter.notifyDataSetChanged();
-//		System.out.println("LIST IS: " + messages.toString());
 		getAllMessages();
-//		((ScrollView) findViewById(R.id.fulk)).fullScroll(ScrollView.FOCUS_DOWN);
-//		recyclerView.smoothScrollToPosition(messages.size() - 1);
-
 	}
 
 	/**
@@ -179,25 +195,32 @@ public class DirectMessageActivity extends AppCompatActivity {
 	 *
 	 * @param text the text
 	 */
-	public void sendMessage(String text){
+	public void sendMessage(String text) {
 		Message msg = new Message(text, "000000", user, friend, new Date());
-		mDatabase.child(DatabaseKeys.dmKey).child(Integer.toString(user.hashCode() + friend.hashCode())).child(new Date().toString()).setValue(msg);
+		Date date = new Date();
+
+		mDatabase.child(DatabaseKeys.dmKey).child(Integer.toString(user.hashCode() + friend.hashCode())).child((messages.size() + 1) + "").setValue(msg);
+	}
+
+	public String dateToTimezoneString(Date date, String timeZoneStr){
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'");
+		sd.setTimeZone(TimeZone.getTimeZone(timeZoneStr));
+		return sd.format(date);
 	}
 
 	/**
 	 * Get all messages.
 	 */
-//TODO(NEED TO FIX THIS)
-	public void getAllMessages(){
-		LinkedList<Message> lst = new LinkedList<>();
 
+	public void getAllMessages() {
+		LinkedList<Message> lst = new LinkedList<>();
 
 
 		mDatabase.child(DatabaseKeys.dmKey).child(Integer.toString(user.hashCode() + friend.hashCode())).addValueEventListener(new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot snapshot) {
 				messages.clear();
-				for(DataSnapshot ds : snapshot.getChildren()){
+				for (DataSnapshot ds : snapshot.getChildren()) {
 //					System.out.println(ds);
 					Message msg = new Message(ds.child("text").getValue().toString(), ds.child("key").getValue().toString(), ds.child("sender").getValue().toString(), "me?", new Date()); //need to actually do smthng w/ me?
 					messages.add(msg);
@@ -205,7 +228,8 @@ public class DirectMessageActivity extends AppCompatActivity {
 				}
 				dmAdapter.notifyDataSetChanged();
 
-				if(recyclerView.canScrollVertically(1)) recyclerView.smoothScrollToPosition(messages.size() - 1);
+				if (recyclerView.canScrollVertically(1))
+					recyclerView.smoothScrollToPosition(messages.size() - 1);
 
 
 			}

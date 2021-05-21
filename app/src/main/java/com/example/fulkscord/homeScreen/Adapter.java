@@ -16,12 +16,14 @@ import com.example.fulkscord.directMessage.DirectMessageActivity;
 import java.util.ArrayList;
 
 /**
- * The type Adapter.
+ * The Adapter class for the RecyclerView in HomeScreenActivity.
+ *
+ * @author Niranjan Mathirajan
  */
 public class Adapter extends RecyclerView.Adapter<Adapter.viewHolder> {
-	private ArrayList<String> localDataSet;
-	private String user;
-	private Context context;
+	private final ArrayList<String> localDataSet;
+	private final String user;
+	private final Context context;
 
 	/**
 	 * Instantiates a new Adapter.
@@ -60,14 +62,17 @@ public class Adapter extends RecyclerView.Adapter<Adapter.viewHolder> {
 	}
 
 	/**
-	 * The type View holder.
+	 * The ViewHolder class that can be served in onCreateViewHolder, and is specific to the
+	 * homescreen
+	 *
+	 * @author Niranjan Mathirajan
 	 */
 	public class viewHolder extends RecyclerView.ViewHolder {
 
 		/**
 		 * The My btn 1.
 		 */
-		private Button myBtn1;
+		private final Button myBtn1;
 
 
 		/**

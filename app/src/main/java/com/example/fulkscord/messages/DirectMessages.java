@@ -2,11 +2,12 @@ package com.example.fulkscord.messages;
 
 import com.example.fulkscord.user.User;
 
-import java.util.LinkedList;
 import java.util.Stack;
 
 /**
  * Direct messages, which are several messages, with users in question
+ *
+ * @author Leo X
  */
 public class DirectMessages {
 

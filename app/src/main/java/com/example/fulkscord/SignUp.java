@@ -1,13 +1,12 @@
 package com.example.fulkscord;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.fulkscord.homeScreen.HomeScreenActivity;
 import com.example.fulkscord.user.User;
@@ -25,6 +24,9 @@ import java.util.ArrayList;
  * goes through regex checking to verify the input data,
  * and makes sure the username is unique before creating the user.
  * It then loads up the HomeScreen activity for the user.
+ *
+ * @version 1.0
+ * @author: Kaustubh Khulbe
  */
 public class SignUp extends AppCompatActivity {
 
@@ -103,6 +105,11 @@ public class SignUp extends AppCompatActivity {
 		}
 	}
 
+	/**
+	 * Creates a new Toast object regarding a specific issue, if one occured
+	 *
+	 * @param issue - String message of the issue
+	 */
 	private void makeNewToast(String issue) {
 		Toast toast = Toast.makeText(this, issue, Toast.LENGTH_SHORT);
 		toast.show();

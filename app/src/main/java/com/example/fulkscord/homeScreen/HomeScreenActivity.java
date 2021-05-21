@@ -3,7 +3,6 @@ package com.example.fulkscord.homeScreen;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -21,17 +20,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
- * The type Home screen activity.
+ * The main Home screen activity.
+ *
+ * @author Kaustubh K
  */
 public class HomeScreenActivity extends AppCompatActivity {
 
 	int friendChildren;
 	boolean firstRead = true;
 
-	private RecyclerView recyclerView;
 	private ArrayList<String> s1;
 	private String user;
 	private DatabaseReference mDatabase;
@@ -44,10 +43,13 @@ public class HomeScreenActivity extends AppCompatActivity {
 
 		mDatabase = FirebaseDatabase.getInstance().getReference();
 		s1 = new ArrayList<String>();
-		newFriend = (EditText) findViewById(R.id.friends);
+		newFriend = findViewById(R.id.friends);
 
 		newFriend.setOnKeyListener((v, keyCode, event) -> {
-			if(event.getAction() == KeyEvent.ACTION_DOWN && (keyCode == KeyEvent.KEYCODE_ENTER)) addFriend(); //Checks if it is pressed and is entered
+			if (event.getAction() == KeyEvent.ACTION_DOWN && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+				addFriend(); //Checks if it is pressed and is entered
+				newFriend.getText().clear();
+			}
 			return false;
 		});
 
@@ -57,7 +59,7 @@ public class HomeScreenActivity extends AppCompatActivity {
 
 		//s1 = new String[]{"test", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2" , "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2" , "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2" , "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2", "test2"};
 
-		recyclerView = findViewById(R.id.recyclerview);
+		RecyclerView recyclerView = findViewById(R.id.recyclerview);
 
 		Adapter adapter = new Adapter(this, s1, user);
 
@@ -69,14 +71,14 @@ public class HomeScreenActivity extends AppCompatActivity {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-				if(firstRead) {
+				if (firstRead) {
 					friendChildren = (int) snapshot.getChildrenCount();
 					firstRead = false;
 				}
 
-				if(snapshot.getChildrenCount() < friendChildren){
+				if (snapshot.getChildrenCount() < friendChildren) {
 					s1.clear();
-					for(DataSnapshot ds : snapshot.getChildren()){
+					for (DataSnapshot ds : snapshot.getChildren()) {
 						s1.add(ds.getValue().toString());
 					}
 					friendChildren = (int) snapshot.getChildrenCount();
@@ -107,17 +109,22 @@ public class HomeScreenActivity extends AppCompatActivity {
 	private void addFriend() {
 		String name = newFriend.getText().toString().trim();
 
+		if (name.equals(user)) {
+			Toast.makeText(HomeScreenActivity.this, "You cannot add yourself as a friend", Toast.LENGTH_SHORT).show();
+			return;
+		}
+
 		mDatabase.child(DatabaseKeys.userKey).addValueEventListener(new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot snapshot) {
-				for(DataSnapshot ds : snapshot.getChildren()){
-					if(ds.child("username").getValue().toString().equals(name)){
+				for (DataSnapshot ds : snapshot.getChildren()) {
+					if (ds.child("username").getValue().toString().equals(name)) {
 						mDatabase.child(DatabaseKeys.userKey).child(name).child(DatabaseKeys.friendsKey).child(user).setValue(user);
 						mDatabase.child(DatabaseKeys.userKey).child(user).child(DatabaseKeys.friendsKey).child(name).setValue(name);
 						return;
 					}
 				}
-				Toast.makeText(HomeScreenActivity.this, "failed to make friend", Toast.LENGTH_SHORT).show();
+				Toast.makeText(HomeScreenActivity.this, "Failed to add friend", Toast.LENGTH_SHORT).show();
 
 			}
 
