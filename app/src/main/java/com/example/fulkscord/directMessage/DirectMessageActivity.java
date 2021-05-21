@@ -198,7 +198,7 @@ public class DirectMessageActivity extends AppCompatActivity {
 		Message msg = new Message(text, "000000", user, friend, new Date());
 		Date date = new Date();
 
-		mDatabase.child(DatabaseKeys.dmKey).child(Integer.toString(user.hashCode() + friend.hashCode())).child(dateToTimezoneString(date, "PST")).setValue(msg);
+		mDatabase.child(DatabaseKeys.dmKey).child(Integer.toString(user.hashCode() + friend.hashCode())).child(dateToTimezoneString(date, "PDT")).setValue(msg);
 	}
 
 	public String dateToTimezoneString(Date date, String timeZoneStr){

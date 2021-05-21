@@ -111,23 +111,20 @@ public class Login extends AppCompatActivity {
 		}
 
 	}
-	//Fulk's Epic Toaster Method?!
-
 	/**
 	 * Meant to bypass the problems faced with having firebase asynchronously call
 	 * to remote database and messing with toast messages
 	 *
+	 * Fulk's Epic Toaster Method?!
 	 * @param message - message that toast should display
 	 * @param Toaster - toast object to display
 	 */
-	private void fulkster(String message, Toast Toaster) {
+	private void fulkster (String message, Toast Toaster) {
 		if (Toaster != null) {
 			Toaster.cancel();
 		} else {
 			Toaster = Toast.makeText(this, message, Toast.LENGTH_LONG);
 			Toaster.show();
 		}
-
 	}
 }
-
