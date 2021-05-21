@@ -16,9 +16,6 @@ import androidx.appcompat.app.AppCompatActivity;
  * @author: Kaustubh Khulbe
  */
 public class MainActivity extends AppCompatActivity {
-	/**
-	 * The Log in.
-	 */
 	private Button logIn, signUp;
 
 	@Override

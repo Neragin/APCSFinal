@@ -30,10 +30,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.TimeZone;
 
 /**
  * The type Direct message activity.
@@ -194,7 +196,15 @@ public class DirectMessageActivity extends AppCompatActivity {
 	 */
 	public void sendMessage(String text) {
 		Message msg = new Message(text, "000000", user, friend, new Date());
-		mDatabase.child(DatabaseKeys.dmKey).child(Integer.toString(user.hashCode() + friend.hashCode())).child(new Date().toString()).setValue(msg);
+		Date date = new Date();
+
+		mDatabase.child(DatabaseKeys.dmKey).child(Integer.toString(user.hashCode() + friend.hashCode())).child(dateToTimezoneString(date, "PST")).setValue(msg);
+	}
+
+	public String dateToTimezoneString(Date date, String timeZoneStr){
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'");
+		sd.setTimeZone(TimeZone.getTimeZone(timeZoneStr));
+		return sd.format(date);
 	}
 
 	/**
