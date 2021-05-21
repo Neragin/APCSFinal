@@ -33,6 +33,7 @@ public class Login extends AppCompatActivity {
 	private EditText password;
 	private String usernameString, passwordString;
 	private DatabaseReference mDatabase;
+	private boolean idiotFound = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,7 @@ public class Login extends AppCompatActivity {
 
 				ReceiveInformationFromText();
 
+
 			}
 		});
 	}
@@ -74,6 +76,8 @@ public class Login extends AppCompatActivity {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot snapshot) {
 				checkIfCredentialsAreValid((Map<String, Object>) snapshot.getValue());
+
+
 			}
 
 			@Override
@@ -99,14 +103,16 @@ public class Login extends AppCompatActivity {
 			//Get phone field and append to list
 			if (singleUser.get("username").toString().equals(usernameString) && singleUser.get("password").toString().equals(passwordString)) {
 
-				fulkster("Successful Login", toast);
+				//fulkster("Successful Login", toast);
+				idiotFound = true;
 				Intent intent = new Intent(this, HomeScreenActivity.class);
 				intent.putExtra("username", usernameString);
 				startActivity(intent);
 
 			} else if (!(singleUser.get("username").toString().equals(usernameString) && singleUser.get("password").toString().equals(passwordString))) {
 
-				fulkster("Invalid Credentials", toast);
+				//fulkster("Invalid Credentials", toast);
+//
 			}
 		}
 
@@ -120,11 +126,7 @@ public class Login extends AppCompatActivity {
 	 * @param Toaster - toast object to display
 	 */
 	private void fulkster (String message, Toast Toaster) {
-		if (Toaster != null) {
-			Toaster.cancel();
-		} else {
-			Toaster = Toast.makeText(this, message, Toast.LENGTH_LONG);
-			Toaster.show();
-		}
+		Toaster = Toast.makeText(this, message, Toast.LENGTH_LONG);
+		Toaster.show();
 	}
 }

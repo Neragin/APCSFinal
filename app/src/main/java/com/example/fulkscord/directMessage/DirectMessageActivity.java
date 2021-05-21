@@ -41,6 +41,7 @@ import java.util.TimeZone;
  * The type Direct message activity.
  *
  * @author Kaustubh
+ * @author: Sources - https://www.youtube.com/watch?v=UDwj5j4tBYg
  */
 public class DirectMessageActivity extends AppCompatActivity {
 
@@ -198,7 +199,7 @@ public class DirectMessageActivity extends AppCompatActivity {
 		Message msg = new Message(text, "000000", user, friend, new Date());
 		Date date = new Date();
 
-		mDatabase.child(DatabaseKeys.dmKey).child(Integer.toString(user.hashCode() + friend.hashCode())).child(dateToTimezoneString(date, "PDT")).setValue(msg);
+		mDatabase.child(DatabaseKeys.dmKey).child(Integer.toString(user.hashCode() + friend.hashCode())).child((messages.size() + 1) + "").setValue(msg);
 	}
 
 	public String dateToTimezoneString(Date date, String timeZoneStr){
@@ -210,7 +211,7 @@ public class DirectMessageActivity extends AppCompatActivity {
 	/**
 	 * Get all messages.
 	 */
-//TODO(NEED TO FIX THIS)
+
 	public void getAllMessages() {
 		LinkedList<Message> lst = new LinkedList<>();
 
