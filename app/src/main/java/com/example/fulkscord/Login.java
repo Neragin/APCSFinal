@@ -95,6 +95,8 @@ public class Login extends AppCompatActivity {
 	 */
 	private void checkIfCredentialsAreValid(Map<String, Object> users) {
 		Toast toast = null;
+		boolean invalid = false;
+		boolean shown = false;
 
 		for (Map.Entry<String, Object> entry : users.entrySet()) {
 
@@ -103,23 +105,29 @@ public class Login extends AppCompatActivity {
 			//Get phone field and append to list
 			if (singleUser.get("username").toString().equals(usernameString) && singleUser.get("password").toString().equals(passwordString)) {
 
-				//fulkster("Successful Login", toast);
-				idiotFound = true;
+				fulkster("Successful Login", toast);
+				shown = true;
 				Intent intent = new Intent(this, HomeScreenActivity.class);
 				intent.putExtra("username", usernameString);
 				startActivity(intent);
 
+
 			} else if (!(singleUser.get("username").toString().equals(usernameString) && singleUser.get("password").toString().equals(passwordString))) {
 
-				//fulkster("Invalid Credentials", toast);
+				invalid = true;
 //
 			}
+		}
+		if (invalid && !shown)
+		{
+			fulkster("Invalid Credentials", toast);
+			invalid = true;
+			shown = false;
 		}
 
 	}
 	/**
-	 * Meant to bypass the problems faced with having firebase asynchronously call
-	 * to remote database and messing with toast messages
+	 * Meant to help display the toast.
 	 *
 	 * Fulk's Epic Toaster Method?!
 	 * @param message - message that toast should display
