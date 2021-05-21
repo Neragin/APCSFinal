@@ -33,6 +33,7 @@ public class Login extends AppCompatActivity {
 	private EditText password;
 	private String usernameString, passwordString;
 	private DatabaseReference mDatabase;
+	private boolean idiotFound = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
