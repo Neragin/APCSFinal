@@ -26,9 +26,9 @@ import java.util.ArrayList;
  * It then loads up the HomeScreen activity for the user.
  *
  * @version 1.0
- * @author: Kaustubh Khulbe
+ * @author Kaustubh Khulbe
  *
- * @author: Sources - https://stackoverflow.com/posts/16702965/revisions
+ * @author Sources - https://stackoverflow.com/posts/16702965/revisions
  */
 public class SignUp extends AppCompatActivity {
 

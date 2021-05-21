@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
  * leads the user to one of the two proposed options.
  *
  * @version 1.0
- * @author: Kaustubh Khulbe
+ * @author Kaustubh Khulbe
  */
 public class MainActivity extends AppCompatActivity {
 	private Button logIn, signUp;

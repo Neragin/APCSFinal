@@ -24,7 +24,7 @@ import java.util.Map;
  * and logs them in, then takes them to Home Screen
  *
  * @version 1.0
- * @author: Kaustubh Khulbe, Leo Xu, Nerangin Mathiranjan
+ * @author Kaustubh Khulbe, Leo Xu, Niranjan Mathirajan
  */
 public class Login extends AppCompatActivity {
 

@@ -41,7 +41,7 @@ import java.util.TimeZone;
  * The type Direct message activity.
  *
  * @author Kaustubh
- * @author: Sources - https://www.youtube.com/watch?v=UDwj5j4tBYg
+ * @author Sources - https://www.youtube.com/watch?v=UDwj5j4tBYg
  */
 public class DirectMessageActivity extends AppCompatActivity {
 
