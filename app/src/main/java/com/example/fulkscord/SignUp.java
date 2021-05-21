@@ -27,12 +27,14 @@ import java.util.ArrayList;
  *
  * @version 1.0
  * @author: Kaustubh Khulbe
+ *
+ * @author: Sources - https://stackoverflow.com/posts/16702965/revisions
  */
 public class SignUp extends AppCompatActivity {
 
 
-	private String username, email, password;
-	private TextView usernameView, emailView, passwordView;
+	private String username, email, password, phone;
+	private TextView usernameView, emailView, passwordView, phoneView;
 	private Button register;
 	private DatabaseReference mDatabase;
 
@@ -56,6 +58,7 @@ public class SignUp extends AppCompatActivity {
 		usernameView = findViewById(R.id.userName);
 		emailView = findViewById(R.id.email);
 		passwordView = findViewById(R.id.registrationPassword);
+		phoneView = findViewById(R.id.editTextPhone);
 
 		register = findViewById(R.id.logIn2);
 		register.setOnClickListener(v -> {
@@ -68,11 +71,14 @@ public class SignUp extends AppCompatActivity {
 	 * it extracts the text inputted, performs regex checks to
 	 * validate the data, and adds a new user to firebase iff
 	 * it is a unique user.
+	 *
+	 * Regex obtained from Stack Overflow
 	 */
 	private void waitForDataAndCheck() {
 		username = (usernameView).getText().toString().trim();
 		email = (emailView).getText().toString().trim();
 		password = (passwordView).getText().toString().trim();
+		phone = (phoneView).getText().toString().trim();
 		System.err.println("Name: " + username + ", email: " + email + ", pwd: " + password);
 
 		if (email == null || !email.matches(
@@ -100,6 +106,10 @@ public class SignUp extends AppCompatActivity {
 			passwordView.setHint("Password");
 			passwordView.setText("");
 
+		} else if (phone == null || !phone.matches("^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$")) {
+			makeNewToast("Please enter a valid phone number which has the Country Code attached to it.");
+			phoneView.setHint("Phone Number");
+			phoneView.setText("");
 		} else {
 			createUser();
 		}
@@ -132,11 +142,9 @@ public class SignUp extends AppCompatActivity {
 
 				} else {
 					// username is valid
-					User user = new User(username, email, "1231231234", password, new ArrayList<String>());
-					System.out.println("hello");
+					User user = new User(username, email, phone, password, new ArrayList<String>());
 					mDatabase.child(DatabaseKeys.userKey).child(username).setValue(user);
 
-					mDatabase.child(DatabaseKeys.userKey).child(username).child("friends").child("bob").setValue("bob");
 
 					goToHomeActivity();
 				}

@@ -33,7 +33,6 @@ public class Login extends AppCompatActivity {
 	private EditText password;
 	private String usernameString, passwordString;
 	private DatabaseReference mDatabase;
-	private boolean idiotFound = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -134,6 +133,10 @@ public class Login extends AppCompatActivity {
 	 * @param Toaster - toast object to display
 	 */
 	private void fulkster (String message, Toast Toaster) {
+		if (Toaster != null)
+		{
+			Toaster.cancel();
+		}
 		Toaster = Toast.makeText(this, message, Toast.LENGTH_LONG);
 		Toaster.show();
 	}

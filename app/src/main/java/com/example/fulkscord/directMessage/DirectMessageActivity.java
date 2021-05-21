@@ -118,7 +118,7 @@ public class DirectMessageActivity extends AppCompatActivity {
 				for (Map.Entry<String, Object> user : ((Map<String, Object>) snapshot.getValue()).entrySet()) {
 					Map f = (Map) user.getValue();
 					if (f.get("username").toString().trim().equals(friend)) {
-						otherPhNum += f.get("phoneNumber");
+						otherPhNum += parseNumber((String) f.get("phoneNumber"));
 					}
 				}
 			}
@@ -153,6 +153,18 @@ public class DirectMessageActivity extends AppCompatActivity {
 		});
 	}
 
+	public String parseNumber(String unParsed)
+	{
+		String output = "";
+		for (int i = 0; i < unParsed.length(); i++)
+		{
+			if (Character.isDigit(unParsed.charAt(i)))
+			{
+				output += unParsed.charAt(i);
+			}
+		}
+		return output;
+	}
 	public void fulkCall() {
 		if (ContextCompat.checkSelfPermission(DirectMessageActivity.this,
 				Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
