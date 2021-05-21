@@ -8,17 +8,17 @@ package com.example.fulkscord;
  */
 public class DatabaseKeys {
 
-	/**
-	 * The constant userKey.
-	 */
-	public static String userKey, friendsKey, dmKey;
+    /**
+     * The constant userKey.
+     */
+    public static String userKey, friendsKey, dmKey;
 
-	//May need to add something for all children also?
+    //May need to add something for all children also?
 
-	static {
-		userKey = "user";
-		friendsKey = "friends";
-		dmKey = "dm";
-	}
+    static {
+        userKey = "user";
+        friendsKey = "friends";
+        dmKey = "dm";
+    }
 
 }
