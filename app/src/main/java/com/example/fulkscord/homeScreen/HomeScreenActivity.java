@@ -2,8 +2,11 @@ package com.example.fulkscord.homeScreen;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -44,6 +47,19 @@ public class HomeScreenActivity extends AppCompatActivity {
 		mDatabase = FirebaseDatabase.getInstance().getReference();
 		s1 = new ArrayList<String>();
 		newFriend = findViewById(R.id.friends);
+
+		newFriend.setRawInputType(InputType.TYPE_CLASS_TEXT);
+		newFriend.setImeOptions(EditorInfo.IME_ACTION_GO);
+
+		TextView.OnEditorActionListener EnterOnText = new TextView.OnEditorActionListener() {
+			public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
+				if (actionId == EditorInfo.IME_ACTION_GO) {
+					addFriend();
+					newFriend.getText().clear();
+				}
+				return true;
+			}
+		};
 
 		newFriend.setOnKeyListener((v, keyCode, event) -> {
 			if (event.getAction() == KeyEvent.ACTION_DOWN && (keyCode == KeyEvent.KEYCODE_ENTER)) {
