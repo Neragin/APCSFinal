@@ -143,6 +143,11 @@ public class DirectMessageActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     *
+     * @param unParsed Phone number to be parsed.
+     * @return A string with just the numbers in the unParsed parameter.
+     */
     public String parseNumber(String unParsed) {
         String output = "";
         for (int i = 0; i < unParsed.length(); i++) {
@@ -153,6 +158,9 @@ public class DirectMessageActivity extends AppCompatActivity {
         return output;
     }
 
+    /**
+     * Initiates calling in the application and checks if the proper permissions were granted
+     */
     public void fulkCall() {
         if (ContextCompat.checkSelfPermission(DirectMessageActivity.this,
                 Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
