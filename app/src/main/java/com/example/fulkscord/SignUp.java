@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * It then loads up the HomeScreen activity for the user.
  *
  * @author Kaustubh Khulbe
- * @author Sources - https://stackoverflow.com/posts/16702965/revisions
+ * @author Sources - https://stackoverflow.com/posts/16702965/revisions, https://emailregex.com/, https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
  * @version 1.0
  */
 public class SignUp extends AppCompatActivity {
