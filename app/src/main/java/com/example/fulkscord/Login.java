@@ -121,7 +121,6 @@ public class Login extends AppCompatActivity {
 
     /**
      * Meant to help display the toast.
-     * <p>
      * Fulk's Epic Toaster Method?!
      *
      * @param message - message that toast should display
