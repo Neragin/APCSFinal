@@ -144,7 +144,6 @@ public class DirectMessageActivity extends AppCompatActivity {
     }
 
     /**
-     *
      * @param unParsed Phone number to be parsed.
      * @return A string with just the numbers in the unParsed parameter.
      */

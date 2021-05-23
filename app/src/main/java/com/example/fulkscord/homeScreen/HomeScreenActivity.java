@@ -39,29 +39,29 @@ public class HomeScreenActivity extends AppCompatActivity {
         setContentView(R.layout.home_screen);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        s1 = new ArrayList<String>();
+        s1 = new ArrayList<>();
         newFriend = findViewById(R.id.friends);
 
-		newFriend.setRawInputType(InputType.TYPE_CLASS_TEXT);
-		newFriend.setImeOptions(EditorInfo.IME_ACTION_GO);
+        newFriend.setRawInputType(InputType.TYPE_CLASS_TEXT);
+        newFriend.setImeOptions(EditorInfo.IME_ACTION_GO);
 
-		TextView.OnEditorActionListener EnterOnText = new TextView.OnEditorActionListener() {
-			public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
-				if (actionId == EditorInfo.IME_ACTION_GO) {
-					addFriend();
-					newFriend.getText().clear();
-				}
-				return true;
-			}
-		};
+        TextView.OnEditorActionListener EnterOnText = new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_GO) {
+                    addFriend();
+                    newFriend.getText().clear();
+                }
+                return true;
+            }
+        };
 
-		newFriend.setOnKeyListener((v, keyCode, event) -> {
-			if (event.getAction() == KeyEvent.ACTION_DOWN && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-				addFriend(); //Checks if it is pressed and is entered
-				newFriend.getText().clear();
-			}
-			return false;
-		});
+        newFriend.setOnKeyListener((v, keyCode, event) -> {
+            if (event.getAction() == KeyEvent.ACTION_DOWN && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                addFriend(); //Checks if it is pressed and is entered
+                newFriend.getText().clear();
+            }
+            return false;
+        });
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -121,6 +121,7 @@ public class HomeScreenActivity extends AppCompatActivity {
 
         if (name.equals(user)) {
             Toast.makeText(HomeScreenActivity.this, "You cannot add yourself as a friend", Toast.LENGTH_SHORT).show();
+            newFriend.setText("");
             return;
         }
 
