@@ -29,3 +29,8 @@ GitHub was used as a version control, remote repository, and continuous integrat
 ## References
 
 Stack Overflow was used to solve and debug problems. Short snippets of code, such as regex expressions, have been cited as needed.
+
+## Slides & Other Materials
+
+Open up the docs folder in the top level folder and then you'll find all the respective folders with the requirements.
+The slides have videos in some of them so please click on them to see it.
